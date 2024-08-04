@@ -10,12 +10,14 @@
   "dependencies": {
     "@vue/runtime-core": "^3.4.35",
     "@vue/runtime-dom": "^3.4.35",
+    "axios": "^1.7.3",
     "core-js": "^3.8.3",
     "sass-loader": "^16.0.0",
     "typescript": "^5.5.4",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
-    "vue-property-decorator": "^9.1.2"
+    "vue-property-decorator": "^9.1.2",
+    "vuetify": "^3.6.14"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
