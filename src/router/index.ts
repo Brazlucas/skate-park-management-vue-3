@@ -9,6 +9,11 @@ import Home from '../modules/Home/Home.vue';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    name: 'login',
+    component: () => import('../modules/Auth/components/form/login-form.component.vue'),
+  },
+  {
+    path: '/home',
     name: 'home',
     component: Home
   },
