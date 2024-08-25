@@ -31,7 +31,6 @@ export default toNative(App);
 
 body {
   margin: 0px;
-  
 }
 
 html {

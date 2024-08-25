@@ -9,7 +9,7 @@
       <v-img
         class="mx-auto my-6"
         max-width="228"
-        src="https://radiocidade.fm/uploads/2021/03/A-251988-1601086848-8901.png.jpg"
+        src="https://i.ibb.co/c3Z73xv/choris-logo.jpg"
       ></v-img>
       <v-card
         dark
@@ -127,6 +127,10 @@ class RegisterFormComponent extends Vue {
 
   public openSnackbar() {
     this.snackbarState = true;
+
+    setTimeout(() => {
+      this.snackbarState = false;
+    }, 2000);
   }
 
   public closeSnackbar() {

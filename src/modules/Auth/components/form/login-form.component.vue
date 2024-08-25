@@ -9,8 +9,8 @@
       <v-img
         class="mx-auto my-6"
         max-width="228"
-        src="https://radiocidade.fm/uploads/2021/03/A-251988-1601086848-8901.png.jpg"
-      ></v-img>
+        src="https://i.ibb.co/c3Z73xv/choris-logo.jpg"
+      />
       <v-card
         dark
         theme="dark"
@@ -49,7 +49,7 @@
           v-model="user.password"
           @click:append-inner="passwordVisible = !passwordVisible"
           @keypress.enter="submit"
-          ></v-text-field>
+        ></v-text-field>
         <v-card
           class="mb-8"
           color="surface-variant"
@@ -109,6 +109,10 @@ class LoginFormComponent extends Vue {
 
   public openSnackbar() {
     this.snackbarState = true;
+
+    setTimeout(() => {
+      this.snackbarState = false;
+    }, 2000);
   }
 
   public closeSnackbar() {
@@ -150,7 +154,7 @@ export default toNative(LoginFormComponent);
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: url('https://gooutside.com.br/wp-content/uploads/sites/3/fckeditor/upload/image/AGOSTO%202012/Josh_Kalis_Noseblunt_Slide_Blabac_Photo_2002.jpg');
+      background-image: url('https://vejasp.abril.com.br/wp-content/uploads/2016/12/chorao-skate.gif');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;

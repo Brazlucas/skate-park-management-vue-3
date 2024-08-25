@@ -6,7 +6,6 @@ import * as directives from 'vuetify/directives';
 import './assets/style/global/index.sass';
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/styles'
-// import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
 import App from './App.vue';
 
@@ -14,7 +13,7 @@ const vuetify = createVuetify({
   components,
   directives,
   icons: {
-    defaultSet: 'mdi', // Define MDI como o conjunto de ícones padrão
+    defaultSet: 'mdi',
   },
 });
 

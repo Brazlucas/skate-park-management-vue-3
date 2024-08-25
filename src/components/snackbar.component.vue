@@ -1,9 +1,9 @@
 <template>
-  <v-snackbar v-model="snackbar">
+  <v-snackbar v-model="dialog" timeout="2000" timer="red">
     {{ value }}
     <template v-slot:actions>
       <v-btn
-        color="pink"
+        color="red"
         variant="text"
         @click="close"
       >
@@ -23,6 +23,12 @@ class SnackBarComponent extends Vue {
 
   @Prop()
   public snackbar!: boolean;
+
+  public dialog: boolean = false;
+
+  private beforeUpdate() {
+    this.dialog = this.snackbar;
+  }
 
   public close() {
     this.$emit('close-snackbar');
