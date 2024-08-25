@@ -1,6 +1,6 @@
 <template>
-  <v-form ref="form" class="login-form">
-    <div class="login-form__background">
+  <v-form ref="form" class="register-form">
+    <div class="register-form__background">
       <snackbar-component
         :value="responseMessage"
         :snackbar="snackbarState"
@@ -19,6 +19,15 @@
         max-width="448"
         rounded="lg"
       >
+        <div class="text-subtitle-1 text-medium-emphasis">Nome</div>
+        <v-text-field
+          density="compact"
+          placeholder="Nome do usuário"
+          prepend-inner-icon="mdi-account-outline"
+          variant="outlined"
+          v-model="user.name"
+          type="email"
+        ></v-text-field>
         <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
         <v-text-field
           density="compact"
@@ -30,14 +39,6 @@
         ></v-text-field>
         <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
           Senha
-          <a
-            class="text-caption text-decoration-none text-red"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Esqueceu a senha?
-          </a>
         </div>
         <v-text-field
           :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
@@ -48,7 +49,20 @@
           variant="outlined"
           v-model="user.password"
           @click:append-inner="passwordVisible = !passwordVisible"
-          @keypress.enter="submit"
+          ></v-text-field>
+          <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+            Confirmar senha
+          </div>
+          <v-text-field
+            :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
+            :type="passwordConfirmationVisible ? 'text' : 'password'"
+            density="compact"
+            placeholder="Confirmar senha"
+            prepend-inner-icon="mdi-lock-outline"
+            variant="outlined"
+            v-model="user.passwordConfirmation"
+            @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
+            @keypress.enter="submit"
           ></v-text-field>
         <v-card
           class="mb-8"
@@ -65,15 +79,15 @@
           @click="submit"
           :loading="loadingValue"
         >
-          Logar
+          Cadastrar
         </v-btn>
           <v-card-text class="text-center">
             <a
               class="text-red text-decoration-none"
-              href="/register"
+              href="/"
               rel="noopener noreferrer"
             >
-              Cadastre-se agora <v-icon icon="mdi-chevron-right"></v-icon>
+              Voltar para o login <v-icon icon="mdi-chevron-right"></v-icon>
             </a>
           </v-card-text>
       </v-card>
@@ -84,15 +98,15 @@
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import User from '../../entities/user.entity';
-import authService from '../../services/auth.service';
 import snackbarComponent from '../../../../components/snackbar.component.vue';
+import registerService from '../services/register.service';
 
 @Component({
   components: {
     snackbarComponent,
   },
 })
-class LoginFormComponent extends Vue {
+class RegisterFormComponent extends Vue {
   private user: User = new User();
 
   private $store: any;
@@ -105,7 +119,11 @@ class LoginFormComponent extends Vue {
 
   private passwordVisible: boolean = false;
 
+  private passwordConfirmationVisible: boolean = false;
+
   private loadingValue: boolean = false;
+
+  private errors: {} = {};
 
   public openSnackbar() {
     this.snackbarState = true;
@@ -118,29 +136,28 @@ class LoginFormComponent extends Vue {
   private submit(): void {
     this.loadingValue = true;
 
-    authService.login(this.user)
+    registerService.register(this.user)
       .then((response: any) => {
         this.responseMessage = response?.message;
         this.openSnackbar();
         setTimeout(() => {
-          this.$router.push({ name: 'home' });
+          this.$router.push({ name: 'login' });
         }, 1000);
       })
       .catch((error: any) => {
-        this.responseMessage = error?.response?.data?.error;
+        this.responseMessage = error?.response?.data?.errors;
         this.openSnackbar();
       })
       .finally(() => {
         this.loadingValue = false;
       });
-    // this.$store.dispatch('auth/login', this.auth);
   }
 }
-export default toNative(LoginFormComponent);
+export default toNative(RegisterFormComponent);
 </script>
 
 <style lang="sass">
-.login-form {
+.register-form {
   &__background {
     &::before {
       filter: blur(7px);

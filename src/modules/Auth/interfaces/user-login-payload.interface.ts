@@ -1,4 +1,4 @@
-export interface IAuthPayload {
+export interface IUserLoginPayload {
   email: string;
   password: string;
 }

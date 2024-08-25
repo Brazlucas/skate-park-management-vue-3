@@ -10,7 +10,7 @@
     <v-col cols="12">
       <ul>
         <li><router-link to="/rentals">Alugar uma pista</router-link></li>
-        <li><router-link to="/skate-parks">Conhecer pistas</router-link></li>
+        <li><router-link to="/skate-parks">Pistas de skate</router-link></li>
       </ul>
     </v-col>
   </v-row>

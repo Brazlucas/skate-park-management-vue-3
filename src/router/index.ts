@@ -13,6 +13,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../modules/Auth/components/form/login-form.component.vue'),
   },
   {
+    path: '/register',
+    name: 'register',
+    component: () => import('../modules/Auth/Register/components/register-form.component.vue'),
+  },
+  {
     path: '/home',
     name: 'home',
     component: Home
