@@ -1,9 +1,9 @@
 <template>
-  <v-snackbar v-model="dialog" timeout="2000" timer="red">
+  <v-snackbar v-model="dialog" timeout="2000" :timer="type === 'success' ? 'green' : 'red'">
     {{ value }}
     <template v-slot:actions>
       <v-btn
-        color="red"
+        :color="type === 'success' ? 'green' : 'red'"
         variant="text"
         @click="close"
       >
@@ -23,6 +23,9 @@ class SnackBarComponent extends Vue {
 
   @Prop()
   public snackbar!: boolean;
+
+  @Prop()
+  public type!: string;
 
   public dialog: boolean = false;
 

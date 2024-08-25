@@ -4,6 +4,7 @@
       <snackbar-component
         :value="responseMessage"
         :snackbar="snackbarState"
+        :type="responseType"
         @close-snackbar="closeSnackbar"
       />
       <v-img
@@ -55,6 +56,10 @@
           color="surface-variant"
           variant="tonal"
         >
+        <v-card-text class="text-medium-emphasis text-caption">
+          Aviso: após 3 falhas de login, sua conta será temporariamente bloqueada por 15 minutos.
+          Você também pode clicar acima em "Esqueceu a senha?" para alterar sua senha.
+        </v-card-text>
         </v-card>
         <v-btn
           class="mb-8"
@@ -83,14 +88,19 @@
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
+import { mapActions } from 'vuex';
+import snackbarComponent from '@/components/snackbar.component.vue';
+import renderAppService from '@/services/base/render.service'
 import User from '../../entities/user.entity';
 import authService from '../../services/auth.service';
-import snackbarComponent from '../../../../components/snackbar.component.vue';
 
 @Component({
   components: {
     snackbarComponent,
   },
+  methods: {
+    ...mapActions(['setToken', 'setIsAuthenticated', 'setUser']),
+  }
 })
 class LoginFormComponent extends Vue {
   private user: User = new User();
@@ -99,6 +109,12 @@ class LoginFormComponent extends Vue {
 
   private $router: any;
 
+  public setIsAuthenticated!: Function;
+
+  public setToken!: Function;
+
+  public setUser!: Function;
+
   public snackbarState: boolean = false;
 
   public responseMessage: any = {};
@@ -106,6 +122,8 @@ class LoginFormComponent extends Vue {
   private passwordVisible: boolean = false;
 
   private loadingValue: boolean = false;
+
+  private responseType: string = '';
 
   public openSnackbar() {
     this.snackbarState = true;
@@ -124,20 +142,31 @@ class LoginFormComponent extends Vue {
 
     authService.login(this.user)
       .then((response: any) => {
+        this.setToken(response.token);
+        this.setIsAuthenticated(true);
         this.responseMessage = response?.message;
+        this.responseType = 'success';
         this.openSnackbar();
+        renderAppService.getRequireInfo();
+        this.setUser();
+
         setTimeout(() => {
           this.$router.push({ name: 'home' });
         }, 1000);
       })
       .catch((error: any) => {
         this.responseMessage = error?.response?.data?.error;
+        this.responseType = 'error';
         this.openSnackbar();
       })
       .finally(() => {
         this.loadingValue = false;
       });
-    // this.$store.dispatch('auth/login', this.auth);
+  }
+
+  private created() {
+    this.setIsAuthenticated(false);
+    window.localStorage.clear();
   }
 }
 export default toNative(LoginFormComponent);

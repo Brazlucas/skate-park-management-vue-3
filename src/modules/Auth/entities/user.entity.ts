@@ -12,11 +12,12 @@ export default class User {
   public token: string;
 
   constructor(user: IUserData = {
+    name: '',
     email: '',
+    token: '',
+    created_at: '',
     password: '',
     password_confirmation: '',
-    name: '',
-    token: '',
   }) {
     this.token = user.token;
     this.email = user.email;
