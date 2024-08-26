@@ -5,6 +5,7 @@
         :value="responseMessage"
         :snackbar="snackbarState"
         @close-snackbar="closeSnackbar"
+        :type="responseType"
       />
       <v-img
         class="mx-auto my-6"
@@ -117,6 +118,8 @@ class RegisterFormComponent extends Vue {
 
   public responseMessage: any = {};
 
+  private responseType: string = '';
+
   private passwordVisible: boolean = false;
 
   private passwordConfirmationVisible: boolean = false;
@@ -143,6 +146,7 @@ class RegisterFormComponent extends Vue {
     registerService.register(this.user)
       .then((response: any) => {
         this.responseMessage = response?.message;
+        this.responseType = 'success';
         this.openSnackbar();
         setTimeout(() => {
           this.$router.push({ name: 'login' });
