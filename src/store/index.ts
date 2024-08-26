@@ -1,14 +1,10 @@
-import Vuex from 'vuex'
+import { createStore } from 'vuex';
+import UserModule from '@/store/auth/index';
+import AuthModule from '@/store/auth/index';
 
-export default new Vuex.Store({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+export const store = createStore({
   modules: {
-  }
-})
+    AuthModule,
+    UserModule,
+  },
+});
