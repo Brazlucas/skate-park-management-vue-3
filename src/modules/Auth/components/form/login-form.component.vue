@@ -90,9 +90,9 @@
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import { mapActions } from 'vuex';
 import snackbarComponent from '@/components/snackbar.component.vue';
-import renderAppService from '@/services/base/render.service'
 import User from '../../entities/user.entity';
 import authService from '../../services/auth.service';
+import RenderApp from '@/services/base/render.service';
 
 @Component({
   components: {
@@ -147,7 +147,7 @@ class LoginFormComponent extends Vue {
         this.responseMessage = response?.message;
         this.responseType = 'success';
         this.openSnackbar();
-        renderAppService.getRequireInfo();
+        RenderApp.getRequireInfo();
         this.setUser();
 
         setTimeout(() => {

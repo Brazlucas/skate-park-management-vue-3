@@ -1,4 +1,4 @@
-import { IUserData } from "../interfaces/user-data.interface";
+import { IUserData } from '../interfaces/user-data.interface';
 
 export default class User {
   public email: string;
@@ -11,6 +11,8 @@ export default class User {
 
   public token: string;
 
+  public createdAt: string;
+
   constructor(user: IUserData = {
     name: '',
     email: '',
@@ -22,6 +24,7 @@ export default class User {
     this.token = user.token;
     this.email = user.email;
     this.name = user.name;
+    this.createdAt = user.created_at;
     this.password = user.password;
     this.passwordConfirmation = user.password_confirmation;
   }
