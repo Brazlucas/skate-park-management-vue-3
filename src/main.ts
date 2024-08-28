@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify';
-import { store } from './store';
+import store from './store';
 import '@mdi/font/css/materialdesignicons.css';
 import router from './router';
 import * as components from 'vuetify/components';

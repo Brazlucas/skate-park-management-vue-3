@@ -1,5 +1,5 @@
 import http from '@/services/base/http.service'
-import { store } from '@/store';
+import store from '@/store';
 import router from '@/router';
 import User from '../entities/user.entity';
 import { AxiosResponse } from 'axios';
