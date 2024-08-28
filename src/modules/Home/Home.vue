@@ -17,6 +17,7 @@
       <ul>
         <li><router-link to="/rentals">Alugar uma pista</router-link></li>
         <li><router-link to="/skate-parks">Pistas de skate</router-link></li>
+        <li v-if="isAdmin"><router-link to="/home">Painel do administrador</router-link></li>
         <v-btn @click="logout">Deslogar</v-btn>
       </ul>
     </v-col>
@@ -31,6 +32,10 @@ import authService from '../Auth/services/auth.service';
 @Component
 class Home extends Vue {
   private user: User = new User();
+
+  private get isAdmin() {
+    return !!this.user.isAdmin;
+  }
 
   private localDateNow: Date = new Date();
 

@@ -13,6 +13,8 @@ export default class User {
 
   public createdAt: string;
 
+  public isAdmin: boolean;
+
   constructor(user: IUserData = {
     name: '',
     email: '',
@@ -20,6 +22,7 @@ export default class User {
     created_at: '',
     password: '',
     password_confirmation: '',
+    is_admin: false,
   }) {
     this.token = user.token;
     this.email = user.email;
@@ -27,5 +30,6 @@ export default class User {
     this.createdAt = user.created_at;
     this.password = user.password;
     this.passwordConfirmation = user.password_confirmation;
+    this.isAdmin = user.is_admin;
   }
 }

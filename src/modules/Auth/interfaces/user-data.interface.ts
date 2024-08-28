@@ -5,4 +5,5 @@ export interface IUserData {
   created_at: string;
   name: string;
   token: string;
+  is_admin: boolean;
 }
