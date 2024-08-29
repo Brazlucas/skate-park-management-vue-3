@@ -4,6 +4,9 @@
       <div class="app-content">
         <v-main>
           <v-container class="pa-0" fluid>
+            <div v-show="isAuthenticated">
+              <header-component />
+            </div>
             <router-view />
           </v-container>
         </v-main>
@@ -12,14 +15,23 @@
   </v-app>
 </template>
 
-<!-- Código abaixo talvez será utilizado. -->
-<!-- <script lang="ts">
-import { Component, Vue, toNative } from 'vue-facing-decorator';
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import { mapGetters } from 'vuex';
+import headerComponent from './components/header.component.vue';
 
-@Component
-class App extends Vue { }
-export default toNative(App);
-</script> -->
+@Options({
+  components: {
+    headerComponent,
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated'])
+  },
+})
+export default class App extends Vue {
+  private isAuthenticated!: Function;
+}
+</script>
 
 <style lang="scss">
 .fade-enter-active, .fade-leave-active {

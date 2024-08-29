@@ -152,7 +152,7 @@ class LoginFormComponent extends Vue {
 
         setTimeout(() => {
           this.$router.push({ name: 'home' });
-        }, 1000);
+        }, 100);
       })
       .catch((error: any) => {
         this.responseMessage = error?.response?.data?.error;
