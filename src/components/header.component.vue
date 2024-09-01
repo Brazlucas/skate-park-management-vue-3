@@ -1,15 +1,15 @@
 <template>
-  <v-app-bar :elevation="2" theme="dark" v-if="componentIsMounted" class="header">
-    <template v-slot:prepend>
+  <v-app-bar :elevation="2" v-if="componentIsMounted" class="header">
+    <!-- <template v-slot:prepend>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    </template>
+    </template> -->
 
     <v-app-bar-title>
-      <v-img src="https://i.ibb.co/YfTknZ7/choris-1.png" width="100" height="200" class="mt-10"></v-img>
+      <v-img src="https://i.postimg.cc/YqssJ92z/logo-compactada.png" width="150" height="200"></v-img>
     </v-app-bar-title>
 
     <v-app-bar-subtitle>
-      <h1>Bem-vindo(a) {{ user.name }}</h1>
+      <h1>Bem-vindo(a)</h1>
       <h1>Agora são: {{ timeNow }}</h1>
     </v-app-bar-subtitle>
 
@@ -62,6 +62,6 @@ export default toNative(HeaderComponent);
 
 <style lang="sass" scoped>
 .header {
-  padding: 18px;
+  padding: 15px;
  }
 </style>
