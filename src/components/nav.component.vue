@@ -14,18 +14,24 @@
       </v-list>
       <v-divider></v-divider>
       <v-list density="default" nav>
-        <router-link v-if="isAdmin" to="/home" class="nav__superimposed">
+        <router-link to="/home" class="nav__superimposed" exact-active-class="active-link">
+          <v-list-item prepend-icon="mdi-home" title="Página inicial" value="shared"></v-list-item>
+        </router-link>
+        <router-link v-if="isAdmin" to="/admin" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-account" title="Painel do administrador" value="myfiles"></v-list-item>
         </router-link>
-        <router-link to="/rentals" class="nav__superimposed">
-          <v-list-item prepend-icon="mdi-map-marker-check-outline" title="Reservar uma pista de skate" value="shared"></v-list-item>
+        <router-link v-else to="/me" class="nav__superimposed" exact-active-class="active-link">
+          <v-list-item prepend-icon="mdi-account" title="Painel do usuário" value="myfiles"></v-list-item>
         </router-link>
-        <router-link to="/skate-parks" class="nav__superimposed">
-          <v-list-item prepend-icon="mdi-calendar-check-outline" title="Pistas de skate disponíveis" value="shared"></v-list-item>
+        <router-link v-if="isAdmin" to="/skate-park-form" class="nav__superimposed" exact-active-class="active-link">
+          <v-list-item prepend-icon="mdi-plus" title="Adicionar uma pista" value="myfiles"></v-list-item>
         </router-link>
-        <router-link to="/starred" class="nav__starred">
+        <router-link v-else to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
+          <v-list-item prepend-icon="mdi-calendar-check-outline" title="Reservar uma pista" value="shared"></v-list-item>
+        </router-link>
+        <!-- <router-link to="/starred" class="nav__superimposed" exact-active-class="nav__starred">
           <v-list-item prepend-icon="mdi-star" title="Favoritos" value="starred"></v-list-item>
-        </router-link>
+        </router-link> -->
       </v-list>
     </v-navigation-drawer>
   </v-layout>
@@ -51,6 +57,7 @@ class NavComponent extends Vue {
     if (userInfo) {
       const localStorageUser = JSON.parse(userInfo);
 
+      
       this.user = localStorageUser;
     }
   }
@@ -69,8 +76,12 @@ export default toNative(NavComponent);
       text-decoration: none !important;
     }
     &__starred {
-      color: gold !important;
+      background-color: gold !important;
       text-decoration: none !important;
     }
   }
+.active-link {
+  background-color: #2196F3; /* Muda a cor de fundo do item ativo */
+  color: red !important; /* Garante que o texto do item ativo seja branco */
+}
 </style>

@@ -32,10 +32,22 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../modules/Rental/components/list/rental-list.component.vue'),
   },
   {
+    path: '/rent/:id',
+    name: 'rental-form',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/Rental/components/form/rental-form.component.vue'),
+  },
+  {
     path: '/skate-parks',
     name: 'skate-park-list',
     meta: { requiresAuth: true },
     component: () => import('../modules/SkatePark/components/list/skate-park-list.component.vue'),
+  },
+  {
+    path: '/skate-park-form',
+    name: 'skate-park-form',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/SkatePark/components/form/skate-park-form.component.vue'),
   },
 ];
 

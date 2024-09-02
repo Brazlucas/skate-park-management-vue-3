@@ -9,11 +9,13 @@
     </v-app-bar-title>
 
     <v-app-bar-subtitle>
-      <h1>Bem-vindo(a)</h1>
-      <h1>Agora são: {{ timeNow }}</h1>
+      <h3>Bem-vindo(a) novamente! <i><span class="user-name">{{ user.name }}</span></i></h3>
     </v-app-bar-subtitle>
 
-    <v-btn @click="logout"><v-icon icon>mdi-close</v-icon></v-btn>
+    <v-btn @click="logout">
+      <v-icon large>mdi-exit-to-app</v-icon>
+      <span class="ml-1">Sair</span>
+    </v-btn>
   </v-app-bar>
 </template>
 
@@ -26,17 +28,7 @@ import authService from '@/modules/Auth/services/auth.service';
 class HeaderComponent extends Vue {
   private user: User = new User();
 
-  private localDateNow: Date = new Date();
-
   private componentIsMounted: boolean = false;
-
-  private get timeNow() {
-    return this.localDateNow.toLocaleTimeString();
-  }
-
-  private updateClock() {
-    this.localDateNow = new Date();
-  }
 
   private logout() {
     authService.logout();
@@ -53,7 +45,6 @@ class HeaderComponent extends Vue {
   }
 
   private mounted() {
-    window.setInterval(this.updateClock, 1000);
     this.componentIsMounted = true;
   }
 }
@@ -63,5 +54,8 @@ export default toNative(HeaderComponent);
 <style lang="sass" scoped>
 .header {
   padding: 15px;
+ }
+.user-name {
+   color: salmon;
  }
 </style>
