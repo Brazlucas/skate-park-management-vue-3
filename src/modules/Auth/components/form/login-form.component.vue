@@ -99,7 +99,12 @@ import RenderApp from '@/services/base/render.service';
     snackbarComponent,
   },
   methods: {
-    ...mapActions(['setToken', 'setIsAuthenticated', 'setUser']),
+    ...mapActions([
+      'setToken',
+      'setIsAuthenticated',
+      'setUser',
+      'setIsLoading'
+    ]),
   }
 })
 class LoginFormComponent extends Vue {
@@ -110,6 +115,8 @@ class LoginFormComponent extends Vue {
   private $router: any;
 
   public setIsAuthenticated!: Function;
+
+  public setIsLoading!: Function;
 
   public setToken!: Function;
 
@@ -139,14 +146,15 @@ class LoginFormComponent extends Vue {
 
   private submit(): void {
     this.loadingValue = true;
+    this.setIsLoading(true);
 
     authService.login(this.user)
       .then((response: any) => {
         this.setToken(response.token);
         this.setIsAuthenticated(true);
-        this.responseMessage = response?.message;
-        this.responseType = 'success';
-        this.openSnackbar();
+        // this.responseMessage = response?.message;
+        // this.responseType = 'success';
+        // this.openSnackbar();
         RenderApp.getRequireInfo();
         this.setUser();
 
@@ -158,6 +166,7 @@ class LoginFormComponent extends Vue {
         this.responseMessage = error?.response?.data?.error;
         this.responseType = 'error';
         this.openSnackbar();
+        this.setIsLoading(false);
       })
       .finally(() => {
         this.loadingValue = false;

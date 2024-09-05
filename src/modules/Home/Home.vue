@@ -25,13 +25,22 @@
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
+import { mapActions } from 'vuex';
 import User from '../Auth/entities/user.entity';
 
-@Component
+@Component({
+  methods: {
+    ...mapActions([
+      'setIsLoading'
+    ]),
+  }
+})
 class Home extends Vue {
   private user: User = new User();
 
   private localDateNow: Date = new Date();
+
+  public setIsLoading!: Function;
 
   private get timeNow() {
     return this.localDateNow.toLocaleTimeString();
@@ -52,6 +61,7 @@ class Home extends Vue {
       const localStorageUser = JSON.parse(userInfo);
       this.user = localStorageUser;
     }
+    this.setIsLoading(false);
   }
 }
 export default toNative(Home);
