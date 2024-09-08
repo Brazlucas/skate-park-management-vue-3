@@ -33,9 +33,8 @@
           Senha
           <a
             class="text-caption text-decoration-none text-red"
-            href="#"
+            href="/forgot-password"
             rel="noopener noreferrer"
-            target="_blank"
           >
             Esqueceu a senha?
           </a>
@@ -61,17 +60,23 @@
           Você também pode clicar acima em "Esqueceu a senha?" para alterar sua senha.
         </v-card-text>
         </v-card>
-        <v-btn
-          class="mb-8"
-          color="white"
-          size="large"
-          variant="tonal"
-          block
-          @click="submit"
-          :loading="loadingValue"
-        >
-          Logar
-        </v-btn>
+        <v-hover>
+          <template v-slot:default="{ isHovering, props }">
+            <v-btn
+              v-bind="props"
+              class="mb-8"
+              :color="isHovering ? 'red' : undefined"
+              size="large"
+              variant="tonal"
+              block
+              rounded
+              @click="submit"
+              :loading="loadingValue"
+            >
+              Logar
+            </v-btn>
+          </template>
+        </v-hover>
           <v-card-text class="text-center">
             <a
               class="text-red text-decoration-none"

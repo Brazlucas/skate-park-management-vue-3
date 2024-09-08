@@ -17,7 +17,7 @@
             Horário de brasília: {{ timeNow }}
           </v-card-subtitle>
         </div>
-        <v-img height="400" src="https://matheusmuriel.github.io/FilosofoChorao/assets/choris.png"></v-img>
+        <v-img height="650" src="https://matheusmuriel.github.io/FilosofoChorao/assets/choris.png"></v-img>
       </v-col>
     </v-row>
   </v-card>

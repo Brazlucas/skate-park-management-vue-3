@@ -1,5 +1,5 @@
 <template>
-  <v-layout height="700">
+  <v-layout class="global__nav">
     <v-navigation-drawer
       floating
       permanent
@@ -26,8 +26,8 @@
         <router-link v-if="isAdmin" to="/skate-park-form" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-plus" title="Adicionar uma pista" value="myfiles"></v-list-item>
         </router-link>
-        <router-link v-else to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
-          <v-list-item prepend-icon="mdi-calendar-check-outline" title="Reservar uma pista" value="shared"></v-list-item>
+        <router-link to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
+          <v-list-item prepend-icon="mdi-skateboard" title="Lista de pistas" value="shared"></v-list-item>
         </router-link>
         <!-- <router-link to="/starred" class="nav__superimposed" exact-active-class="nav__starred">
           <v-list-item prepend-icon="mdi-star" title="Favoritos" value="starred"></v-list-item>

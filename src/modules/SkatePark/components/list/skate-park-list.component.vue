@@ -12,13 +12,13 @@
           <v-col cols="12" v-if="!listView">
             <v-carousel
               hide-delimiters
-              height="525"
+              height="800"
               hide-delimiter-background
             >
               <v-carousel-item
                 v-for="skatePark in skateParks"
                 :key="skatePark.id"
-                src="https://i.ytimg.com/vi/DlNDN-T6HNk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCBFrJjCa7KQAykUxv7pGwiOoFyyg"
+                src="https://wallpapers.com/images/hd/graffiti-skate-brands-logo-ggt53v438hbka5r6.jpg"
               >
                 <div class="carousel-informations">
                   <v-list-item-content>
@@ -30,7 +30,7 @@
                     <v-list-item-subtitle class="global__content__card__subtitle mt-5">{{ skatePark.location }}</v-list-item-subtitle>
                     <p class="mt-5">{{ skatePark.description }}</p>
                   </v-list-item-content>
-                  <router-link :to="`/rent/${skatePark.id}`" class="nav__superimposed">
+                  <router-link v-if="!user.isAdmin" :to="`/rent/${skatePark.id}`" class="nav__superimposed">
                     <div class="carousel-informations__more">
                       <span><i>Reservar</i></span>
                     </div>
@@ -46,6 +46,15 @@
             ></v-data-table>
           </v-col>
         </template>
+        <template v-else>
+          <v-row no-gutters>
+            <v-col cols="12" class="d-flex justify-center mt-15">
+              <v-card-title class="global__content__card__subtitle">
+                Nenhuma pista de skate cadastrada :(
+              </v-card-title>
+            </v-col>
+          </v-row>
+        </template>
       </v-col>
     </v-row>
   </v-card>
@@ -54,11 +63,14 @@
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import skateParkService from '@/modules/SkatePark/services/skate-park.service';
+import User from '@/modules/Auth/entities/user.entity';
 import SkatePark from '../../entities/skate-park.entity';
 
 @Component
 class SkateParkListComponent extends Vue {
   private skateParks: SkatePark[] = [];
+
+  private user: User = new User();
 
   private skatePark: SkatePark = new SkatePark();
 
@@ -88,12 +100,22 @@ class SkateParkListComponent extends Vue {
   private created() {
     this.getAllSkateParks();
   }
+
+  private mounted() {
+    const userInfo = localStorage.getItem('user-info');
+    if (userInfo) {
+      const localStorageUser = JSON.parse(userInfo);
+      this.user = localStorageUser;
+    }
+  }
 }
 export default toNative(SkateParkListComponent);
 </script>
 
 <style lang="sass" scoped>
 .carousel-informations {
+  max-width: 600px !important;
+  max-height: 350px !important;
   position: absolute;
   bottom: 20px;
   left: 50%;

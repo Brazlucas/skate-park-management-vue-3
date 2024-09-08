@@ -1,6 +1,6 @@
 <template>
   <v-card class="global-form">
-    <v-row no-gutters>
+    <v-row no-gutters class="d-flex justify-center">
       <v-col cols="12">
         <v-card-title class="global__content__card__title d-flex justify-space-between">
           <span>Aluguel de "{{ skatePark.name }}"</span>
@@ -10,7 +10,7 @@
           Preencha os dados abaixo para o aluguel da pista
         </v-card-subtitle>
       </v-col>
-      <v-col cols="9" class="ml-5">
+      <v-col cols="9" class="ml-5 mt-15">
         <div class="text-subtitle-1 text-medium-emphasis">Nome</div>
         <v-text-field
           density="compact"

@@ -1,11 +1,12 @@
 import { AxiosResponse } from 'axios';
 import http from '@/services/base/http.service';
 import SkatePark from '../entities/skate-park.entity';
+import skateParkPayloadAdapter from '../adapters/skate-park-payload.adapter';
 
 class SkateParkService {
   public async create(data: SkatePark) {
     return http
-      .post('/skate-parks', data);
+      .post('/skate-parks', skateParkPayloadAdapter.formatPayload(data));
   }
   public async update(data: SkatePark) {
     return http

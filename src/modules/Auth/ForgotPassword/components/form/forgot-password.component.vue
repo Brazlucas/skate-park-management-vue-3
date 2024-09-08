@@ -1,6 +1,6 @@
 <template>
-  <v-form ref="form" class="register-form">
-    <div class="register-form__background">
+  <v-form ref="form" class="forgot-pass-form">
+    <div class="forgot-pass-form__background">
       <snackbar-component
         :value="responseMessage"
         :snackbar="snackbarState"
@@ -20,15 +20,6 @@
         max-width="448"
         rounded="lg"
       >
-        <div class="text-subtitle-1 text-medium-emphasis">Nome</div>
-        <v-text-field
-          density="compact"
-          placeholder="Nome do usuário"
-          prepend-inner-icon="mdi-account-outline"
-          variant="outlined"
-          v-model="user.name"
-          type="email"
-        ></v-text-field>
         <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
         <v-text-field
           density="compact"
@@ -38,39 +29,6 @@
           v-model="user.email"
           type="email"
         ></v-text-field>
-        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-          Senha
-        </div>
-        <v-text-field
-          :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="passwordVisible ? 'text' : 'password'"
-          density="compact"
-          placeholder="Senha"
-          prepend-inner-icon="mdi-lock-outline"
-          variant="outlined"
-          v-model="user.password"
-          @click:append-inner="passwordVisible = !passwordVisible"
-          ></v-text-field>
-          <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-            Confirmar senha
-          </div>
-          <v-text-field
-            :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
-            :type="passwordConfirmationVisible ? 'text' : 'password'"
-            density="compact"
-            placeholder="Confirmar senha"
-            prepend-inner-icon="mdi-lock-outline"
-            variant="outlined"
-            v-model="user.passwordConfirmation"
-            @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
-            @keypress.enter="submit"
-          ></v-text-field>
-        <v-card
-          class="mb-8"
-          color="surface-variant"
-          variant="tonal"
-        >
-        </v-card>
         <v-hover>
           <template v-slot:default="{ isHovering, props }">
             <v-btn
@@ -81,10 +39,9 @@
               variant="tonal"
               block
               rounded
-              @click="submit"
               :loading="loadingValue"
             >
-              Cadastrar
+              Enviar e-mail
             </v-btn>
           </template>
         </v-hover>
@@ -106,14 +63,13 @@
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import snackbarComponent from '@/components/snackbar.component.vue';
 import User from '../../../entities/user.entity';
-import registerService from '../../services/register.service';
 
 @Component({
   components: {
     snackbarComponent,
   },
 })
-class RegisterFormComponent extends Vue {
+class ForgotPasswordFormComponent extends Vue {
   private user: User = new User();
 
   private $store: any;
@@ -145,33 +101,12 @@ class RegisterFormComponent extends Vue {
   public closeSnackbar() {
     this.snackbarState = false;
   }
-
-  private submit(): void {
-    this.loadingValue = true;
-
-    registerService.register(this.user)
-      .then((response: any) => {
-        this.responseMessage = response?.message;
-        this.responseType = 'success';
-        this.openSnackbar();
-        setTimeout(() => {
-          this.$router.push({ name: 'login' });
-        }, 1000);
-      })
-      .catch((error: any) => {
-        this.responseMessage = error?.response?.data?.errors;
-        this.openSnackbar();
-      })
-      .finally(() => {
-        this.loadingValue = false;
-      });
-  }
 }
-export default toNative(RegisterFormComponent);
+export default toNative(ForgotPasswordFormComponent);
 </script>
 
 <style lang="sass">
-.register-form {
+.forgot-pass-form {
   &__background {
     &::before {
       filter: blur(7px);

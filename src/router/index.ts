@@ -14,6 +14,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../modules/Auth/components/form/login-form.component.vue'),
   },
   {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    meta: { requiresAuth: false },
+    component: () => import('../modules/Auth/ForgotPassword/components/form/forgot-password.component.vue'),
+  },
+  {
     path: '/register',
     name: 'register',
     meta: { requiresAuth: false },

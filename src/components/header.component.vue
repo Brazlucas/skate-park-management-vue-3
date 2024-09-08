@@ -5,7 +5,9 @@
     </template> -->
 
     <v-app-bar-title>
-      <v-img src="https://i.postimg.cc/YqssJ92z/logo-compactada.png" width="150" height="200"></v-img>
+      <router-link to="/home">
+        <v-img src="https://i.postimg.cc/YqssJ92z/logo-compactada.png" width="150" height="200"></v-img>
+      </router-link>
     </v-app-bar-title>
 
     <v-app-bar-subtitle>
