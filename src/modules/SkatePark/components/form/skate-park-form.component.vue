@@ -111,8 +111,8 @@ class SkateParkFormComponent extends Vue {
 
   private addSkatePark() {
     skateParkService.create(this.skatePark)
-    .then((response: any) => {
-        this.responseMessage = response?.data?.message;
+    .then(() => {
+        this.responseMessage = 'Pista de skate adicionada com sucesso!';
         this.responseType = 'success';
         this.openSnackbar();
         setTimeout(() => {

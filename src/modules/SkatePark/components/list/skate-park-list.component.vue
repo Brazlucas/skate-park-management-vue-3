@@ -27,7 +27,9 @@
                     >
                       {{ skatePark.name }}
                     </v-list-item-title>
-                    <v-list-item-subtitle class="global__content__card__subtitle mt-5">{{ skatePark.location }}</v-list-item-subtitle>
+                    <v-list-item-subtitle class="global__content__card__subtitle mt-5">
+                      {{ skatePark.location }}
+                    </v-list-item-subtitle>
                     <p class="mt-5">{{ skatePark.description }}</p>
                   </v-list-item-content>
                   <router-link v-if="!user.isAdmin" :to="`/rent/${skatePark.id}`" class="nav__superimposed">
@@ -38,6 +40,16 @@
                 </div>
               </v-carousel-item>
             </v-carousel>
+            <v-row justify="center" class="mt-5">
+              <v-btn
+                v-if="user.isAdmin"
+                color="red"
+                rounded
+                @click="deleteSkatePark(skatePark.id)"
+              >
+                Excluir pista
+              </v-btn>
+            </v-row>
           </v-col>
           <v-col v-else>
             <v-data-table
@@ -94,6 +106,16 @@ class SkateParkListComponent extends Vue {
       })
       .finally(() => {
         console.log('finally');
+      });
+  }
+
+  private deleteSkatePark(id: number) {
+    skateParkService.delete(id.toString())
+      .then(() => {
+        this.getAllSkateParks();
+      })
+      .catch((err) => {
+        console.error(err);
       });
   }
 
