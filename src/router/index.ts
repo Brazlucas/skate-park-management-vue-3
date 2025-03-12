@@ -55,6 +55,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
     component: () => import('../modules/SkatePark/components/form/skate-park-form.component.vue'),
   },
+  {
+    path: '/chat-bot',
+    name: 'chat-bot',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/ChatBot/components/chat-bot.component.vue'),
+  },
 ];
 
 const router = createRouter({
