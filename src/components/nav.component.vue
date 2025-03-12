@@ -29,6 +29,9 @@
         <router-link to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-skateboard" title="Lista de pistas" value="shared"></v-list-item>
         </router-link>
+        <router-link to="/chat-bot" class="nav__superimposed" exact-active-class="active-link">
+          <v-list-item prepend-icon="mdi-help-circle" title="Ajuda" value="shared"></v-list-item>
+        </router-link>
         <!-- <router-link to="/starred" class="nav__superimposed" exact-active-class="nav__starred">
           <v-list-item prepend-icon="mdi-star" title="Favoritos" value="starred"></v-list-item>
         </router-link> -->
