@@ -74,9 +74,11 @@ class ChatBotComponent extends Vue {
 
 
   private created() {
+    if (this.messages.length > 0) return;
+
     setTimeout(() => {
-      this.messages.push({ sender: "Chorão", text: "Olá! Como te posso ajudar hoje? :D" });
-    }, 2000);
+      this.messages.push({ sender: "Chorão", text: "Eaí, mano! Como te posso ajudar hoje?" });
+    }, 1000);
   }
 }
 
