@@ -17,16 +17,13 @@
         <router-link to="/home" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-home" title="Página inicial" value="shared"></v-list-item>
         </router-link>
-        <router-link v-if="isAdmin" to="/admin" class="nav__superimposed" exact-active-class="active-link">
+        <router-link v-if="isAdmin" to="/admin-form" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-account" title="Painel do administrador" value="myfiles"></v-list-item>
         </router-link>
         <router-link v-else to="/me" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-account" title="Painel do usuário" value="myfiles"></v-list-item>
         </router-link>
-        <router-link v-if="isAdmin" to="/skate-park-form" class="nav__superimposed" exact-active-class="active-link">
-          <v-list-item prepend-icon="mdi-plus" title="Adicionar uma pista" value="myfiles"></v-list-item>
-        </router-link>
-        <router-link to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
+        <router-link v-if="!isAdmin" to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-skateboard" title="Lista de pistas" value="shared"></v-list-item>
         </router-link>
         <router-link to="/chat-bot" class="nav__superimposed" exact-active-class="active-link">
@@ -60,7 +57,6 @@ class NavComponent extends Vue {
     if (userInfo) {
       const localStorageUser = JSON.parse(userInfo);
 
-      
       this.user = localStorageUser;
     }
   }

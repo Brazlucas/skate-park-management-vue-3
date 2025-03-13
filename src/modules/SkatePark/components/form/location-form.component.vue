@@ -9,44 +9,23 @@
     <v-row no-gutters class="justify-center d-flex">
       <v-col cols="12">
         <v-card-title class="global__content__card__title d-flex justify-space-between">
-          <span>Adicionar pista de skate</span>
+          <span>Adicionar localização</span>
           <span><v-icon>mdi-plus</v-icon></span>
         </v-card-title>
         <v-card-subtitle class="global__content__card__subtitle">
-          Preencha os dados abaixo para adicionar uma pista no sistema
+          Adicione uma localização no sistema
         </v-card-subtitle>
       </v-col>
       <v-col cols="9" class="ml-5 mt-15">
         <div class="text-subtitle-1 text-medium-emphasis">Nome</div>
         <v-text-field
           density="compact"
-          placeholder="Nome da pista de skate"
+          placeholder="Nome da localização de SP"
           variant="outlined"
           type="email"
-          v-model="skatePark.name"
+          v-model="location.name"
           id="name"
         ></v-text-field>
-      </v-col>
-      <v-col cols="9" class="ml-5">
-        <div class="text-subtitle-1 text-medium-emphasis">Localização SP</div>
-        <v-select
-          density="compact"
-          placeholder="Localização da pista de skate"
-          variant="outlined"
-          type="email"
-          :items="locations"
-          v-model="skatePark.location"
-        ></v-select>
-      </v-col>
-      <v-col cols="9" class="ml-5">
-        <div class="text-subtitle-1 text-medium-emphasis">Descrição</div>
-        <v-textarea
-          density="compact"
-          placeholder="Descrição da pista de skate"
-          variant="outlined"
-          type="email"
-          v-model="skatePark.description"
-        ></v-textarea>
       </v-col>
     </v-row>
     <v-hover>
@@ -54,12 +33,12 @@
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
             <v-btn
-              @click="addSkatePark"
+              @click="addLocation"
               v-bind="props"
               class="global__content"
               :color="isHovering ? 'red' : undefined"
               title="Hover over me"
-              text="Adicionar pista"
+              text="Adicionar localização"
               width="50%"
               elevation="8"
               rounded
@@ -94,8 +73,6 @@
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import snackbarComponent from '@/components/snackbar.component.vue';
-import SkatePark from '../../entities/skate-park.entity';
-import skateParkService from '../../services/skate-park.service';
 import locationService from '../../services/location.service';
 
 @Component({
@@ -103,10 +80,8 @@ import locationService from '../../services/location.service';
     snackbarComponent,
   },
 })
-class SkateParkFormComponent extends Vue {
+class LocationFormComponent extends Vue {
   private $router: any;
-
-  private skatePark: SkatePark = new SkatePark();
 
   public snackbarState: boolean = false;
 
@@ -120,9 +95,7 @@ class SkateParkFormComponent extends Vue {
 
   private locations: string[] = [];
 
-  private goBack() {
-    this.$router.go(-1);
-  }
+  private location: { id: string, name: string } = { id: '', name: ''}
 
   private getLocations() {
     locationService.getAll()
@@ -134,6 +107,10 @@ class SkateParkFormComponent extends Vue {
         this.responseType = 'error';
         this.openSnackbar();
       });
+  }
+
+  private goBack() {
+    this.$router.go(-1);
   }
 
   public openSnackbar() {
@@ -148,14 +125,14 @@ class SkateParkFormComponent extends Vue {
     this.snackbarState = false;
   }
 
-  private addSkatePark() {
-    skateParkService.create(this.skatePark)
+  private addLocation() {
+    locationService.create(this.location)
     .then(() => {
-        this.responseMessage = 'Pista de skate adicionada com sucesso!';
+        this.responseMessage = 'Localização adicionada com sucesso!';
         this.responseType = 'success';
         this.openSnackbar();
         setTimeout(() => {
-          this.$router.push({ name: 'skate-park-list' });
+          this.$router.push({ name: 'admin-form' });
         }, 1000);
       })
       .catch((err) => {
@@ -168,13 +145,9 @@ class SkateParkFormComponent extends Vue {
       });
   }
 
-  private created() {
-    this.getLocations();
-
-    if (this.skatePark.location === '') {
-      this.skatePark.location = 'Selecione uma localização';
-    }
-  }
+  // private created() {
+  //   this.getLocations();
+  // }
 }
-export default toNative(SkateParkFormComponent);
+export default toNative(LocationFormComponent);
 </script>

@@ -13,7 +13,7 @@ class AuthService {
   }
 
   public getAuthUserInfo() {
-    return http.get('/user-info')
+    return http.get('/me')
       .then(({ data }: AxiosResponse) => data);
   }
 
