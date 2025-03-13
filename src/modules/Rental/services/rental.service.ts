@@ -1,5 +1,5 @@
-// import { AxiosResponse } from 'axios';
-// import http from '@/services/base/http.service';
+import { AxiosResponse } from 'axios';
+import http from '@/services/base/http.service';
 
 class RentalService {
   // public async create(user: User) {
@@ -10,11 +10,11 @@ class RentalService {
   //   return http
   //     .put(`/User/${user.id}`, user);
   // }
-  // public async getAll() {
-  //   return http
-  //     .get('/User')
-  //     .then(({ data }: AxiosResponse) => data);
-  // }
+  public async getAll() {
+    return http
+      .get('/rentals')
+      .then(({ data }: AxiosResponse) => data);
+  }
   // public async getById(id: string) {
   //   return http
   //     .get(`/User/${id}`)

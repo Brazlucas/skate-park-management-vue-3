@@ -15,6 +15,7 @@
     "@vue/runtime-core": "^3.4.35",
     "@vue/runtime-dom": "^3.4.35",
     "axios": "^1.7.3",
+    "chart.js": "^4.4.8",
     "core-js": "^3.38.0",
     "sass-loader": "^16.0.0",
     "typescript": "^5.5.4",

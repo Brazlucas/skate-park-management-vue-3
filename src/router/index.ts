@@ -55,6 +55,18 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
     component: () => import('../modules/SkatePark/components/form/skate-park-form.component.vue'),
   },
+  {
+    path: '/location-form',
+    name: 'location-form',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/SkatePark/components/form/location-form.component.vue')
+  },
+  {
+    path: '/admin-form',
+    name: 'admin-form',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/Management/Admin/components/form/admin-form.component.vue'),
+  },
 ];
 
 const router = createRouter({

@@ -4,9 +4,6 @@
       <v-col cols="12">
         <v-card-title class="global__content__card__title d-flex justify-space-between">
           <span>Pistas de skate <v-icon>mdi-skateboard</v-icon></span>
-          <v-btn icon @click="changeListView">
-            <v-icon>{{ !listView ? 'mdi-view-headline' : 'mdi-view-carousel'}}</v-icon>
-          </v-btn>
         </v-card-title>
         <template v-if="skatePark.id">
           <v-col cols="12" v-if="!listView">
@@ -18,7 +15,7 @@
               <v-carousel-item
                 v-for="skatePark in skateParks"
                 :key="skatePark.id"
-                src="https://wallpapers.com/images/hd/graffiti-skate-brands-logo-ggt53v438hbka5r6.jpg"
+                src="https://i.ytimg.com/vi/Flii4YJEjCc/maxresdefault.jpg"
               >
                 <div class="carousel-informations">
                   <v-list-item-content>
@@ -34,7 +31,7 @@
                   </v-list-item-content>
                   <router-link v-if="!user.isAdmin" :to="`/rent/${skatePark.id}`" class="nav__superimposed">
                     <div class="carousel-informations__more">
-                      <span><i>Reservar</i></span>
+                      <span class="carousel_informations__more__hover"><i>Reservar</i></span>
                     </div>
                   </router-link>
                 </div>
@@ -50,12 +47,6 @@
                 Excluir pista
               </v-btn>
             </v-row>
-          </v-col>
-          <v-col v-else>
-            <v-data-table
-              :items="skateParks"
-              hide-default-footer
-            ></v-data-table>
           </v-col>
         </template>
         <template v-else>
@@ -153,7 +144,10 @@ export default toNative(SkateParkListComponent);
   &__more {
     margin-top: 30px;
     cursor: pointer;
-    color: red
+    color: red;
+    &:hover {
+      outline: 1px solid red;
+    }
   }
 }
 </style>
