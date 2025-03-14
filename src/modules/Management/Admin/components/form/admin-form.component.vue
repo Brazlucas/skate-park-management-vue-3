@@ -159,7 +159,6 @@ class AdminFormComponent extends Vue {
             {
               data: data.map(item => item.valor),
               backgroundColor: ['blue', 'red', 'green', 'yellow'],
-              hoverOffset: 5
             }
           ]
         },

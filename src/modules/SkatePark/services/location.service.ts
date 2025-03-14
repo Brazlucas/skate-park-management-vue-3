@@ -8,7 +8,7 @@ class LocationService {
       .then(({ data }: AxiosResponse) => data);
   }
 
-  public async create(data: { id: '', name: '' }) {
+  public async create(data: any) {
     return http
       .post('/locations', data);
   }
