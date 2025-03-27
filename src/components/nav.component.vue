@@ -20,7 +20,7 @@
         <router-link v-if="isAdmin" to="/admin-form" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-account" title="Painel do administrador" value="myfiles"></v-list-item>
         </router-link>
-        <router-link v-else to="/me" class="nav__superimposed" exact-active-class="active-link">
+        <router-link v-else to="/user-form" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-account" title="Painel do usuário" value="myfiles"></v-list-item>
         </router-link>
         <router-link v-if="!isAdmin" to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">

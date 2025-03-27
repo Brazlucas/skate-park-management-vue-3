@@ -27,7 +27,7 @@
     </v-row>
 
     <!-- Modal -->
-    <v-dialog v-model="dialog">
+    <v-dialog v-model="dialog" width="800">
       <v-card>
         <v-card-title class="text-h5 d-flex justify-space-between">
           <span>{{ selectedItem?.module }}</span>
