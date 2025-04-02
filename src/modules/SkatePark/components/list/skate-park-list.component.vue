@@ -5,42 +5,28 @@
         Pistas de Skate <v-icon color="light-blue lighten-2">mdi-skateboard</v-icon>
       </v-card-title>
 
-      <template v-if="skatePark.id">
-        <v-col cols="12" v-if="!listView">
-          <v-carousel hide-delimiters height="600" hide-delimiter-background>
-            <v-carousel-item
-              v-for="skatePark in skateParks"
-              :key="skatePark.id"
-              src="https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/h3kyw7djb4sky6dpn7ui"
-              class="carousel-item"
-            >
-              <div class="carousel-info">
-                <v-list-item-content>
-                  <v-list-item-title class="skate-title">
-                    {{ skatePark.name }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="skate-location">
-                    📍 {{ skatePark.location }}
-                  </v-list-item-subtitle>
-                  <p class="skate-description">{{ skatePark.description }}</p>
-                </v-list-item-content>
+      <!-- Verifica se existe skatePark e renderiza o conteúdo -->
+      <template v-if="skateParks.length > 0">
+        <v-row>
+          <v-col v-for="skatePark in skateParks" :key="skatePark.id" cols="12" md="6">
+            <v-card class="skate-card-item">
+              <v-img :src="skatePark.image || 'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/h3kyw7djb4sky6dpn7ui'" height="200px" />
+              <v-card-title class="skate-title">{{ skatePark.name }}</v-card-title>
+              <v-card-subtitle class="skate-location">📍 {{ skatePark.location }}</v-card-subtitle>
+              <v-card-text class="skate-description">{{ skatePark.description }}</v-card-text>
+              <v-card-actions>
+                <!-- Condicional de Exibição de Botões -->
                 <router-link v-if="!user.isAdmin" :to="`/rent/${skatePark.id}`" class="reserve-link">
-                  <v-btn class="reserve-btn">
-                    Reservar
-                  </v-btn>
+                  <v-btn class="reserve-btn">Reservar</v-btn>
                 </router-link>
-              </div>
-            </v-carousel-item>
-          </v-carousel>
-
-          <v-row justify="center" class="mt-5">
-            <v-btn v-if="user.isAdmin" color="red" class="delete-btn" rounded @click="deleteSkatePark(skatePark.id)">
-              Excluir Pista
-            </v-btn>
-          </v-row>
-        </v-col>
+                <v-btn v-if="user.isAdmin" color="red" class="delete-btn" @click="deleteSkatePark(skatePark.id)">Excluir Pista</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
       </template>
 
+      <!-- Caso não haja skateparks cadastradas -->
       <template v-else>
         <v-row no-gutters>
           <v-col cols="12" class="d-flex justify-center mt-15">
@@ -64,7 +50,6 @@ import SkatePark from '../../entities/skate-park.entity';
 class SkateParkListComponent extends Vue {
   private skateParks: SkatePark[] = [];
   private user: User = new User();
-  private skatePark: SkatePark = new SkatePark();
   private listView: boolean = false;
 
   private changeListView() {
@@ -74,10 +59,7 @@ class SkateParkListComponent extends Vue {
   private getAllSkateParks() {
     skateParkService.getAll()
       .then((response: any[]) => {
-        this.skateParks = response;
-        this.skateParks.map((item: SkatePark) => {
-          this.skatePark = new SkatePark(item);
-        });
+        this.skateParks = response.map(item => new SkatePark(item));
       })
       .catch((err) => console.error(err));
   }
@@ -99,6 +81,7 @@ class SkateParkListComponent extends Vue {
     }
   }
 }
+
 export default toNative(SkateParkListComponent);
 </script>
 
@@ -132,20 +115,10 @@ export default toNative(SkateParkListComponent);
   color: #bb86fc;
 }
 
-.carousel-item {
-  border-radius: 8px;
-}
-
-.carousel-info {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+.skate-card-item {
   background-color: rgba(0, 0, 0, 0.7);
-  padding: 16px;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 500px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .skate-title {

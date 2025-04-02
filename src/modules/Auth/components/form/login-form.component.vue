@@ -10,7 +10,8 @@
       <v-img
         class="mx-auto my-6"
         max-width="228"
-        src="https://i.ibb.co/c3Z73xv/choris-logo.jpg"
+        max-height="150"
+        src="https://www.clicrbs.com.br/sites/swf/chorao/foto.png"
       />
       <v-card
         dark

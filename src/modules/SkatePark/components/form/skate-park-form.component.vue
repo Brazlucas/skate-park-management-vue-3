@@ -10,7 +10,7 @@
       <v-col cols="12">
         <v-card-title class="global__content__card__title d-flex justify-space-between">
           <span class="title-text">Adicionar Pista de Skate</span>
-          <span><v-icon>mdi-plus</v-icon></span>
+          <v-icon>mdi-plus</v-icon>
         </v-card-title>
         <v-card-subtitle class="global__content__card__subtitle">
           Preencha os dados abaixo para adicionar uma pista no sistema

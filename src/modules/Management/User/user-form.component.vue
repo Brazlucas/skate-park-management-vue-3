@@ -171,36 +171,36 @@ export default class UserPanel extends Vue {
 
   public loading: boolean = false;
 
-  private updateProfile() {
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.$toast.success('Perfil atualizado com sucesso!');
-    }, 1000);
-  }
+  // private updateProfile() {
+  //   this.loading = true;
+  //   setTimeout(() => {
+  //     this.loading = false;
+  //     this.$toast.success('Perfil atualizado com sucesso!');
+  //   }, 1000);
+  // }
 
-  private openChangePassword() {
-    this.$router.push({ name: 'change-password' });
-  }
+  // private openChangePassword() {
+  //   this.$router.push({ name: 'change-password' });
+  // }
 
-  private deactivateAccount() {
-    this.$confirm('Tem certeza que deseja desativar sua conta?')
-      .then(() => {
-        this.$toast.success('Conta desativada!');
-        this.$router.push({ name: 'goodbye' });
-      })
-      .catch(() => {
-        console.log('Conta não desativada');
-      });
-  }
+  // private deactivateAccount() {
+  //   this.$confirm('Tem certeza que deseja desativar sua conta?')
+  //     .then(() => {
+  //       this.$toast.success('Conta desativada!');
+  //       this.$router.push({ name: 'goodbye' });
+  //     })
+  //     .catch(() => {
+  //       console.log('Conta não desativada');
+  //     });
+  // }
 
-  private openSupport() {
-    this.$router.push({ name: 'support-ticket' });
-  }
+  // private openSupport() {
+  //   this.$router.push({ name: 'support-ticket' });
+  // }
 
-  private viewSupportHistory() {
-    this.$router.push({ name: 'support-history' });
-  }
+  // private viewSupportHistory() {
+  //   this.$router.push({ name: 'support-history' });
+  // }
 }
 </script>
 
