@@ -74,10 +74,22 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../modules/Management/User/user-form.component.vue'),
   },
   {
+    path: '/user-form-create',
+    name: 'user-form-create',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/Management/Admin/components/form/user-form-create.component.vue'),
+  },
+  {
     path: '/chat-bot',
     name: 'chat-bot',
     meta: { requiresAuth: true },
     component: () => import('../modules/ChatBot/components/chat-bot.component.vue'),
+  },
+  {
+    path: '/admin-list',
+    name: 'admin-list',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/Management/Admin/components/list/admin-generic-list.component.vue'),
   },
 ];
 

@@ -3,4 +3,6 @@ export interface IUserRegisterPayload {
   password: string;
   password_confirmation: string;
   name: string;
+  address: string;
+  phone: string;
 }

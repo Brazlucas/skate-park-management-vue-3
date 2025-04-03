@@ -1,83 +1,83 @@
 <template>
-  <v-container class="home-container">
-    <v-card class="global py-6 px-4">
-      <v-row>
-        <v-col cols="12" class="text-center">
-          <v-card-title class="text-h4 font-weight-bold">
-            Painel Choris Skate Park
-          </v-card-title>
-          <v-card-subtitle class="text-subtitle-1">
-            <i class="font-italic" :style="{ color: 'salmon' }">
-              {{ isAdmin ? 'Administrativo' : 'Cliente' }}
-            </i>
-          </v-card-subtitle>
-        </v-col>
-      </v-row>
-
-      <v-row class="my-4">
-        <v-col cols="12" md="6">
-          <v-hover v-slot="{ hover }">
-            <v-card class="info-card pa-4" :elevation="hover ? 12 : 4">
-              <v-card-title class="text-h5 font-weight-medium">
-                {{ isAdmin ? 'Gerencie as pistas de skate' : 'Reserve sua pista e veja a disponibilidade' }}
+  <v-app class="home-container">
+    <v-main>
+      <v-container fluid>
+        <v-card class="global py-6 px-4">
+          <v-row>
+            <v-col cols="12" class="text-center">
+              <v-card-title class="text-h4 font-weight-bold">
+                Painel Choris Skate Park
               </v-card-title>
-              <v-card-text class="text-body-1">
-                Explore todas as funcionalidades disponíveis para {{ isAdmin ? 'administradores' : 'clientes' }}.
-              </v-card-text>
-            </v-card>
-          </v-hover>
-        </v-col>
-
-        <v-col cols="12" md="6" class="text-center">
-          <v-hover v-slot="{ hover }">
-            <v-card class="info-card pa-4" :elevation="hover ? 12 : 4">
-              <v-card-title class="text-h5 font-weight-medium">
-                Horário de Brasília
-              </v-card-title>
-              <v-card-text class="text-body-1 font-weight-bold text-primary">
-                {{ timeNow }}
-              </v-card-text>
-            </v-card>
-          </v-hover>
-        </v-col>
-      </v-row>
-
-      <v-row class="overview-section my-6" v-if="user.isAdmin">
-        <v-col cols="12" md="4">
-          <v-slide-y-transition>
-            <v-card class="overview-card pa-4">
-              <v-card-title class="text-h6 font-weight-bold">Total de Clientes</v-card-title>
-              <v-card-text class="text-h5 text-success">1,245</v-card-text>
-            </v-card>
-          </v-slide-y-transition>
-        </v-col>
+              <v-card-subtitle class="text-subtitle-1">
+                <i class="font-italic" :style="{ color: 'salmon' }">
+                  {{ isAdmin ? 'Administrativo' : 'Cliente' }}
+                </i>
+              </v-card-subtitle>
+            </v-col>
+          </v-row>
+          <v-row class="my-4">
+            <v-col cols="12" md="6">
+              <v-hover v-slot="{ hover }">
+                <v-card class="info-card pa-4" :elevation="hover ? 12 : 4">
+                  <v-card-title class="text-h5 font-weight-medium">
+                    {{ isAdmin ? 'Gerencie as pistas de skate' : 'Reserve sua pista e veja a disponibilidade' }}
+                  </v-card-title>
+                  <v-card-text class="text-body-1">
+                    Explore todas as funcionalidades disponíveis para {{ isAdmin ? 'administradores' : 'clientes' }}.
+                  </v-card-text>
+                </v-card>
+              </v-hover>
+            </v-col>
+            <v-col cols="12" md="6" class="text-center">
+              <v-hover v-slot="{ hover }">
+                <v-card class="info-card pa-4" :elevation="hover ? 12 : 4">
+                  <v-card-title class="text-h5 font-weight-medium">
+                    Horário de Brasília
+                  </v-card-title>
+                  <v-card-text class="text-body-1 font-weight-bold text-primary">
+                    {{ timeNow }}
+                  </v-card-text>
+                </v-card>
+              </v-hover>
+            </v-col>
+          </v-row>
+          <v-row class="overview-section my-6" v-if="user.isAdmin">
+            <v-col cols="12" md="4">
+              <v-slide-y-transition>
+                <v-card class="overview-card pa-4">
+                  <v-card-title class="text-h6 font-weight-bold">Total de Clientes</v-card-title>
+                  <v-card-text class="text-h5 text-success">1,245</v-card-text>
+                </v-card>
+              </v-slide-y-transition>
+            </v-col>
         
-        <v-col cols="12" md="4">
-          <v-slide-y-transition>
-            <v-card class="overview-card pa-4">
-              <v-card-title class="text-h6 font-weight-bold">Reservas Realizadas</v-card-title>
-              <v-card-text class="text-h5 text-info">3,452</v-card-text>
-            </v-card>
-          </v-slide-y-transition>
-        </v-col>
+            <v-col cols="12" md="4">
+              <v-slide-y-transition>
+                <v-card class="overview-card pa-4">
+                  <v-card-title class="text-h6 font-weight-bold">Reservas Realizadas</v-card-title>
+                  <v-card-text class="text-h5 text-info">3,452</v-card-text>
+                </v-card>
+              </v-slide-y-transition>
+            </v-col>
         
-        <v-col cols="12" md="4">
-          <v-slide-y-transition>
-            <v-card class="overview-card pa-4">
-              <v-card-title class="text-h6 font-weight-bold">Receita Estimada</v-card-title>
-              <v-card-text class="text-h5 text-warning">R$ 85,620</v-card-text>
-            </v-card>
-          </v-slide-y-transition>
-        </v-col>
-      </v-row>
-
-      <v-row justify="center">
-        <v-col cols="12" md="10">
-          <v-img height="500" contain :src="skateImage"></v-img>
-        </v-col>
-      </v-row>
-    </v-card>
-  </v-container>
+            <v-col cols="12" md="4">
+              <v-slide-y-transition>
+                <v-card class="overview-card pa-4">
+                  <v-card-title class="text-h6 font-weight-bold">Receita Estimada</v-card-title>
+                  <v-card-text class="text-h5 text-warning">R$ 85,620</v-card-text>
+                </v-card>
+              </v-slide-y-transition>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <v-col cols="12" md="10">
+              <v-img height="500" contain :src="skateImage"></v-img>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">

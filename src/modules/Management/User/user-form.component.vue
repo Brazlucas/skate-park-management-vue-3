@@ -8,7 +8,6 @@
           <v-col cols="12" md="8">
             <v-card>
               <v-card-title class="headline">Informações do Perfil</v-card-title>
-              <v-card-subtitle>{{ user.email }}</v-card-subtitle>
               <v-divider></v-divider>
               <v-card-text>
                 <v-row>
@@ -128,8 +127,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-facing-decorator';
+import { mapActions } from 'vuex';
 
-@Component
+@Component({
+  methods: {
+    ...mapActions(['setIsLoading']),
+  },
+})
 export default class UserPanel extends Vue {
   public user: any = {
     name: '',
@@ -141,6 +145,8 @@ export default class UserPanel extends Vue {
       sms: false,
     }
   };
+
+  public setIsLoading!: Function;
 
   public activities: any[] = [
     { id: 1, title: 'Alteração de senha', date: '2025-03-26' },
@@ -201,6 +207,14 @@ export default class UserPanel extends Vue {
   // private viewSupportHistory() {
   //   this.$router.push({ name: 'support-history' });
   // }
+
+  private created() {
+    this.setIsLoading(true);
+    this.user = JSON.parse(localStorage.getItem('user-info') || '');
+    setTimeout(() => {
+      this.setIsLoading(false);
+    }, 500);
+  }
 }
 </script>
 

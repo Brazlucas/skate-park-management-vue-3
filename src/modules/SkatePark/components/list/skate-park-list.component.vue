@@ -1,43 +1,45 @@
 <template>
-  <v-container class="dark-theme">
-    <v-card class="skate-card">
-      <v-card-title class="title">
-        Pistas de Skate <v-icon color="light-blue lighten-2">mdi-skateboard</v-icon>
-      </v-card-title>
-
-      <!-- Verifica se existe skatePark e renderiza o conteúdo -->
-      <template v-if="skateParks.length > 0">
-        <v-row>
-          <v-col v-for="skatePark in skateParks" :key="skatePark.id" cols="12" md="6">
-            <v-card class="skate-card-item">
-              <v-img :src="skatePark.image || 'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/h3kyw7djb4sky6dpn7ui'" height="200px" />
-              <v-card-title class="skate-title">{{ skatePark.name }}</v-card-title>
-              <v-card-subtitle class="skate-location">📍 {{ skatePark.location }}</v-card-subtitle>
-              <v-card-text class="skate-description">{{ skatePark.description }}</v-card-text>
-              <v-card-actions>
-                <!-- Condicional de Exibição de Botões -->
-                <router-link v-if="!user.isAdmin" :to="`/rent/${skatePark.id}`" class="reserve-link">
-                  <v-btn class="reserve-btn">Reservar</v-btn>
-                </router-link>
-                <v-btn v-if="user.isAdmin" color="red" class="delete-btn" @click="deleteSkatePark(skatePark.id)">Excluir Pista</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </template>
-
-      <!-- Caso não haja skateparks cadastradas -->
-      <template v-else>
-        <v-row no-gutters>
-          <v-col cols="12" class="d-flex justify-center mt-15">
-            <v-card-title class="empty-message">
-              Nenhuma pista de skate cadastrada 😕
-            </v-card-title>
-          </v-col>
-        </v-row>
-      </template>
-    </v-card>
-  </v-container>
+  <v-app class="skate-park-container">
+    <v-main>
+      <v-container fluid>
+        <v-card class="skate-park-list py-6 px-4">
+          <v-card-title class="title text-h4 font-weight-bold">
+            Pistas de Skate <v-icon color="light-blue lighten-2">mdi-skateboard</v-icon>
+          </v-card-title>
+          <!-- Verifica se existe skatePark e renderiza o conteúdo -->
+          <template v-if="skateParks.length > 0">
+            <v-row>
+              <v-col v-for="skatePark in skateParks" :key="skatePark.id" cols="12" md="6">
+                <v-card class="skate-card-item">
+                  <v-img :src="skatePark.image || 'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/h3kyw7djb4sky6dpn7ui'" height="200px" />
+                  <v-card-title class="skate-title">{{ skatePark.name }}</v-card-title>
+                  <v-card-subtitle class="skate-location">📍 {{ skatePark.location }}</v-card-subtitle>
+                  <v-card-text class="skate-description">{{ skatePark.description }}</v-card-text>
+                  <v-card-actions>
+                    <!-- Condicional de Exibição de Botões -->
+                    <router-link v-if="!user.isAdmin" :to="`/rent/${skatePark.id}`" class="reserve-link">
+                      <v-btn class="reserve-btn">Reservar</v-btn>
+                    </router-link>
+                    <v-btn v-if="user.isAdmin" color="white" class="delete-btn" @click="deleteSkatePark(skatePark.id)">Excluir Pista</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+          </template>
+          <!-- Caso não haja skateparks cadastradas -->
+          <template v-else>
+            <v-row no-gutters>
+              <v-col cols="12" class="d-flex justify-center mt-15">
+                <v-card-title class="empty-message">
+                  Nenhuma pista de skate cadastrada 😕
+                </v-card-title>
+              </v-col>
+            </v-row>
+          </template>
+        </v-card>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -49,7 +51,9 @@ import SkatePark from '../../entities/skate-park.entity';
 @Component
 class SkateParkListComponent extends Vue {
   private skateParks: SkatePark[] = [];
+
   private user: User = new User();
+
   private listView: boolean = false;
 
   private changeListView() {
@@ -86,17 +90,10 @@ export default toNative(SkateParkListComponent);
 </script>
 
 <style scoped>
-/* Tema Dark */
-.dark-theme {
-  background: url('https://i.ytimg.com/vi/Flii4YJEjCc/maxresdefault.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
+.skate-park-container {
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  backdrop-filter: blur(8px); /* Efeito de blur no fundo */
+  min-height: 100vh;
 }
 
 .skate-card {

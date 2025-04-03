@@ -15,6 +15,12 @@ export default class User {
 
   public isAdmin: boolean;
 
+  public address: string;
+
+  public phone: string;
+
+  public notifications: { sms: boolean; email: boolean };
+
   constructor(user: IUserData = {
     name: '',
     email: '',
@@ -23,7 +29,11 @@ export default class User {
     password: '',
     password_confirmation: '',
     is_admin: false,
+    address: '',
+    phone: '',
+    notifications: { sms: false, email: false },
   }) {
+    this.notifications = user.notifications;
     this.token = user.token;
     this.email = user.email;
     this.name = user.name;
@@ -31,5 +41,7 @@ export default class User {
     this.password = user.password;
     this.passwordConfirmation = user.password_confirmation;
     this.isAdmin = user.is_admin;
+    this.address = user.address;
+    this.phone = user.phone;
   }
 }

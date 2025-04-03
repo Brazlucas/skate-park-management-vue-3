@@ -6,6 +6,7 @@
     >
       <v-list>
         <v-list-item
+          class="icon"
           :append-icon="isAdmin ? 'mdi-shield-crown' : ''"
           prepend-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5FAPT67VhJt6hITfDXhnUp2cv5CDwsuyQvT7__kkOGErX88qJ"
           :subtitle="user.email"
@@ -23,10 +24,10 @@
         <router-link v-else to="/user-form" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-account" title="Painel do usuário" value="myfiles"></v-list-item>
         </router-link>
-        <router-link v-if="!isAdmin" to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
+        <router-link to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-skateboard" title="Lista de pistas" value="shared"></v-list-item>
         </router-link>
-        <router-link to="/chat-bot" class="nav__superimposed" exact-active-class="active-link">
+        <router-link v-if="!isAdmin" to="/chat-bot" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-help-circle" title="Ajuda" value="shared"></v-list-item>
         </router-link>
         <!-- <router-link to="/starred" class="nav__superimposed" exact-active-class="nav__starred">
@@ -80,7 +81,12 @@ export default toNative(NavComponent);
     }
   }
 .active-link {
-  background-color: #2196F3; /* Muda a cor de fundo do item ativo */
-  color: red !important; /* Garante que o texto do item ativo seja branco */
+  background-color: #2196F3;
+  color: red !important;
+}
+.icon {
+  .v-icon {
+    color: yellow !important;
+  }
 }
 </style>

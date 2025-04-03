@@ -4,7 +4,7 @@
       <div v-show="isAuthenticated" class="app-menu">
         <nav-component />
       </div>
-      <div class="app-content">
+      <div :class="{ 'app-content': isAuthenticated, 'login-content': !isAuthenticated }">
         <v-main>
           <v-container class="pa-0" fluid>
             <loader-component />
@@ -40,8 +40,11 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-body {
-  margin: 0px;
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 html {
@@ -50,16 +53,31 @@ html {
 
 .app-grid {
   display: flex;
+  height: 100vh;
 }
 
 .app-menu {
   margin-top: 95px;
-  width: 320px;
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.login-content {
+  flex-grow: 1;
+  padding: 30px 0px 0px 0px;
+  width: 100%;
 }
 
 .app-content {
   flex-grow: 1;
-  padding: 30px 0px 0px 0px;
+  margin-left: 250px; /* Mesma largura da nav para alinhar corretamente */
+  height: 100vh;
+  overflow-y: auto; /* Permite o scroll apenas no conteúdo */
+  padding: 30px 0px;
   width: 100%;
 }
 </style>

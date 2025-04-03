@@ -9,6 +9,12 @@ class RegisterService {
       .post('/register', userPayloadAdapter.formatRegister(data))
       .then(({ data }: AxiosResponse) => data);
   }
+
+  public async internalRegistration(data: User): Promise<string> {
+    return http
+      .post('/internal-registration', userPayloadAdapter.formatInternalRegister(data))
+      .then(({ data }: AxiosResponse) => data);
+  }
 }
 
 export default new RegisterService();
