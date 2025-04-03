@@ -1,106 +1,90 @@
 <template>
-  <v-form ref="form" class="register-form">
-    <div class="register-form__background">
-      <snackbar-component
-        :value="responseMessage"
-        :snackbar="snackbarState"
-        @close-snackbar="closeSnackbar"
-        :type="responseType"
-      />
-      <v-img
-        class="mx-auto my-6"
-        max-width="228"
-        src="https://i.ibb.co/c3Z73xv/choris-logo.jpg"
-      ></v-img>
-      <v-card
-        dark
-        theme="dark"
-        class="mx-auto pa-12 pb-8"
-        elevation="8"
-        max-width="448"
-        rounded="lg"
-      >
-        <div class="text-subtitle-1 text-medium-emphasis">Nome</div>
-        <v-text-field
-          density="compact"
-          placeholder="Nome do usuário"
-          prepend-inner-icon="mdi-account-outline"
-          variant="outlined"
-          v-model="user.name"
-          type="email"
-        ></v-text-field>
-        <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
-        <v-text-field
-          density="compact"
-          placeholder="Endereço de e-mail"
-          prepend-inner-icon="mdi-email-outline"
-          variant="outlined"
-          v-model="user.email"
-          type="email"
-        ></v-text-field>
-        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-          Senha
-        </div>
-        <v-text-field
-          :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="passwordVisible ? 'text' : 'password'"
-          density="compact"
-          placeholder="Senha"
-          prepend-inner-icon="mdi-lock-outline"
-          variant="outlined"
-          v-model="user.password"
-          @click:append-inner="passwordVisible = !passwordVisible"
-          ></v-text-field>
-          <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-            Confirmar senha
-          </div>
-          <v-text-field
-            :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
-            :type="passwordConfirmationVisible ? 'text' : 'password'"
-            density="compact"
-            placeholder="Confirmar senha"
-            prepend-inner-icon="mdi-lock-outline"
-            variant="outlined"
-            v-model="user.passwordConfirmation"
-            @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
-            @keypress.enter="submit"
-          ></v-text-field>
-        <v-card
-          class="mb-8"
-          color="surface-variant"
-          variant="tonal"
-        >
-        </v-card>
-        <v-hover>
-          <template v-slot:default="{ isHovering, props }">
-            <v-btn
-              v-bind="props"
-              class="mb-8"
-              :color="isHovering ? 'red' : undefined"
-              size="large"
-              variant="tonal"
-              block
-              rounded
-              @click="submit"
-              :loading="loadingValue"
-            >
-              Cadastrar
-            </v-btn>
-          </template>
-        </v-hover>
-          <v-card-text class="text-center">
-            <a
-              class="text-red text-decoration-none"
-              href="/"
-              rel="noopener noreferrer"
-            >
-              Voltar para o login <v-icon icon="mdi-chevron-right"></v-icon>
-            </a>
+  <v-container fluid>
+    <v-row justify="center" class="register-form__background">
+      <v-col cols="12" md="8" lg="4">
+        <v-card>
+          <v-card-title class="headline">Cadastro de Usuário</v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-form ref="form">
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="user.name"
+                    label="Nome"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-account-outline"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="user.email"
+                    label="E-mail"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-email-outline"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="user.password"
+                    :type="passwordVisible ? 'text' : 'password'"
+                    label="Senha"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-lock-outline"
+                    :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+                    @click:append-inner="passwordVisible = !passwordVisible"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="user.passwordConfirmation"
+                    :type="passwordConfirmationVisible ? 'text' : 'password'"
+                    label="Confirmar Senha"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-lock-outline"
+                    :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
+                    @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="user.address"
+                    label="Endereço"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-account-outline"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="user.phone"
+                    label="Telefone"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-account-outline"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-form>
           </v-card-text>
-      </v-card>
-    </div>
-  </v-form>
+          <v-card-actions class="d-flex justify-space-between">
+            <v-btn color="secondary" @click="goBack" rounded>
+              <v-icon left>mdi-arrow-left</v-icon> Voltar
+            </v-btn>
+            <v-btn color="primary" :loading="loading" @click="submit" rounded>
+              <v-icon left>mdi-account-plus</v-icon> Cadastrar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';

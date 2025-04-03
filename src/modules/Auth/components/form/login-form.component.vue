@@ -1,95 +1,74 @@
 <template>
-  <v-form ref="form" class="login-form">
-    <div class="login-form__background">
-      <snackbar-component
-        :value="responseMessage"
-        :snackbar="snackbarState"
-        :type="responseType"
-        @close-snackbar="closeSnackbar"
-      />
-      <v-img
-        class="mx-auto my-6"
-        max-width="228"
-        max-height="150"
-        src="https://www.clicrbs.com.br/sites/swf/chorao/foto.png"
-      />
-      <v-card
-        dark
-        theme="dark"
-        class="mx-auto pa-12 pb-8"
-        elevation="8"
-        max-width="448"
-        rounded="lg"
-      >
-        <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
-        <v-text-field
-          density="compact"
-          placeholder="Endereço de e-mail"
-          prepend-inner-icon="mdi-email-outline"
-          variant="outlined"
-          v-model="user.email"
-          type="email"
-        ></v-text-field>
-        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-          Senha
-          <a
-            class="text-caption text-decoration-none text-red"
-            href="/forgot-password"
-            rel="noopener noreferrer"
-          >
-            Esqueceu a senha?
-          </a>
-        </div>
-        <v-text-field
-          :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="passwordVisible ? 'text' : 'password'"
-          density="compact"
-          placeholder="Senha"
-          prepend-inner-icon="mdi-lock-outline"
-          variant="outlined"
-          v-model="user.password"
-          @click:append-inner="passwordVisible = !passwordVisible"
-          @keypress.enter="submit"
-        ></v-text-field>
-        <v-card
-          class="mb-8"
-          color="surface-variant"
-          variant="tonal"
-        >
-        <v-card-text class="text-medium-emphasis text-caption">
-          Aviso: após 3 falhas de login, sua conta será temporariamente bloqueada por 15 minutos.
-          Você também pode clicar acima em "Esqueceu a senha?" para alterar sua senha.
-        </v-card-text>
-        </v-card>
-        <v-hover>
-          <template v-slot:default="{ isHovering, props }">
-            <v-btn
-              v-bind="props"
-              class="mb-8"
-              :color="isHovering ? 'red' : undefined"
-              size="large"
-              variant="tonal"
-              block
-              rounded
-              @click="submit"
-              :loading="loadingValue"
-            >
-              Logar
+  <!-- <snackbar-component
+    :value="responseMessage"
+    :snackbar="snackbarState"
+    :type="responseType"
+    @close-snackbar="closeSnackbar"
+  /> -->
+
+  <v-container fluid>
+    <v-row justify="center" class="login-form__background">
+      <v-col cols="12" md="8" lg="4">
+        <v-img
+          class="mx-auto my-6"
+          max-width="228"
+          max-height="150"
+          src="https://www.clicrbs.com.br/sites/swf/chorao/foto.png"
+        />
+        <v-card>
+          <v-card-title class="headline">Login</v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-form ref="form">
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="user.email"
+                    label="E-mail"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-email-outline"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+                    Senha
+                    <a
+                      class="text-caption text-decoration-none text-red"
+                      href="/forgot-password"
+                      rel="noopener noreferrer"
+                    >
+                      Esqueceu a senha?
+                    </a>
+                  </div>
+                  <v-text-field
+                    v-model="user.password"
+                    :type="passwordVisible ? 'text' : 'password'"
+                    label="Senha"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-lock-outline"
+                    :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+                    @click:append-inner="passwordVisible = !passwordVisible"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-card-text>
+          <v-card-actions class="d-flex justify-end">
+            <v-btn color="primary" :loading="loading" @click="submit" rounded>
+              <v-icon left>mdi-login</v-icon> Entrar
             </v-btn>
-          </template>
-        </v-hover>
+          </v-card-actions>
           <v-card-text class="text-center">
-            <a
-              class="text-red text-decoration-none"
-              href="/register"
-              rel="noopener noreferrer"
-            >
+            <a class="text-red text-decoration-none" href="/register" rel="noopener noreferrer">
               Cadastre-se agora <v-icon icon="mdi-chevron-right"></v-icon>
             </a>
           </v-card-text>
-      </v-card>
-    </div>
-  </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -114,69 +93,41 @@ import RenderApp from '@/services/base/render.service';
   }
 })
 class LoginFormComponent extends Vue {
-  private user: User = new User();
-
-  private $store: any;
-
   private $router: any;
+  private user: User = new User();
+  private passwordVisible: boolean = false;
+  private loading: boolean = false;
 
   public setIsAuthenticated!: Function;
-
   public setIsLoading!: Function;
-
   public setToken!: Function;
-
   public setUser!: Function;
 
-  public snackbarState: boolean = false;
-
-  public responseMessage: any = {};
-
-  private passwordVisible: boolean = false;
-
-  private loadingValue: boolean = false;
-
-  private responseType: string = '';
-
-  public openSnackbar() {
-    this.snackbarState = true;
-
-    setTimeout(() => {
-      this.snackbarState = false;
-    }, 2000);
-  }
-
-  public closeSnackbar() {
-    this.snackbarState = false;
-  }
-
   private submit(): void {
-    this.loadingValue = true;
+    this.loading = true;
     this.setIsLoading(true);
 
     authService.login(this.user)
       .then((response: any) => {
         this.setToken(response.token);
         this.setIsAuthenticated(true);
-        // this.responseMessage = response?.message;
-        // this.responseType = 'success';
-        // this.openSnackbar();
         RenderApp.getRequireInfo();
         this.setUser();
-
         setTimeout(() => {
           this.$router.push({ name: 'home' });
         }, 1000);
       })
       .catch((error: any) => {
-        this.responseMessage = error?.response?.data?.error;
-        this.responseType = 'error';
-        this.openSnackbar();
+        console.log(error);
         this.setIsLoading(false);
       })
       .finally(() => {
-        this.loadingValue = false;
+        this.loading = false;
       });
+  }
+
+  private goBack(): void {
+    this.$router.go(-1);
   }
 
   private created() {
