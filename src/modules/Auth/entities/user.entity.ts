@@ -21,6 +21,8 @@ export default class User {
 
   public notifications: { sms: boolean; email: boolean };
 
+  public id: number;
+
   constructor(user: IUserData = {
     name: '',
     email: '',
@@ -32,6 +34,7 @@ export default class User {
     address: '',
     phone: '',
     notifications: { sms: false, email: false },
+    id: 0,
   }) {
     this.notifications = user.notifications;
     this.token = user.token;
@@ -43,5 +46,6 @@ export default class User {
     this.isAdmin = user.is_admin;
     this.address = user.address;
     this.phone = user.phone;
+    this.id = user.id;
   }
 }

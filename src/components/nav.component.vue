@@ -24,7 +24,7 @@
         <router-link v-else to="/user-form" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-account" title="Painel do usuário" value="myfiles"></v-list-item>
         </router-link>
-        <router-link to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
+        <router-link v-if="!isAdmin" to="/skate-parks" class="nav__superimposed" exact-active-class="active-link">
           <v-list-item prepend-icon="mdi-skateboard" title="Lista de pistas" value="shared"></v-list-item>
         </router-link>
         <router-link v-if="!isAdmin" to="/chat-bot" class="nav__superimposed" exact-active-class="active-link">

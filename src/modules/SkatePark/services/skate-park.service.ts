@@ -6,7 +6,7 @@ import skateParkPayloadAdapter from '../adapters/skate-park-payload.adapter';
 class SkateParkService {
   public async create(data: SkatePark) {
     return http
-      .post('/skate-parks', skateParkPayloadAdapter.formatPayload(data));
+      .post('/skate-parks', data);
   }
   public async update(data: SkatePark) {
     return http

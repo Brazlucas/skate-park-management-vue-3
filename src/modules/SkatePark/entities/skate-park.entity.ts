@@ -11,15 +11,21 @@ export default class SkatePark {
 
   public updatedAt: Date;
 
-  public location: string;
+  public location: { city: string; state: string; id: string };
+
+  public rentals: any[];
+
+  public rented: boolean;
   
   constructor(skate_park: ISkateParkData = {
     id: '',
     name: '',
     description: '',
-    location: '',
+    location: { city: '', state: '', id: '' },
     createdAt: new Date(),
     updatedAt: new Date(),
+    rented: false,
+    rentals: []
   }) {
     this.id = skate_park.id;
     this.name = skate_park.name;
@@ -27,5 +33,7 @@ export default class SkatePark {
     this.createdAt = skate_park.createdAt;
     this.updatedAt = skate_park.updatedAt;
     this.location = skate_park.location;
+    this.rented = skate_park.rented;
+    this.rentals = skate_park.rentals;
   }
 }

@@ -5,7 +5,7 @@ class SkateParkPayloadAdapter {
     return {
       name: data.name,
       description: data.description,
-      location: data.location,
+      location_id: data.location.id,
     };
   }
 }

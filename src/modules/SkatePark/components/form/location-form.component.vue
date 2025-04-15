@@ -9,18 +9,30 @@
               <v-divider></v-divider>
               <v-card-text>
                 <v-row>
-                  <v-col cols="12">
-                    <div class="text-subtitle-1">Nome da Localização</div>
+                  <v-col cols="12" md="6">
+                    <div class="text-subtitle-1">Cidade</div>
                     <v-text-field 
-                      v-model="location.name" 
-                      label="Nome" 
+                      v-model="location.city" 
+                      label="Cidade" 
                       outlined 
                       dense 
-                      :error-messages="formError.name"
-                    ></v-text-field>
+                      :error-messages="formError.city"
+                    />
+                  </v-col>
+
+                  <v-col cols="12" md="6">
+                    <div class="text-subtitle-1">Estado</div>
+                    <v-text-field 
+                      v-model="location.state" 
+                      label="Estado (ex: SP)" 
+                      outlined 
+                      dense 
+                      :error-messages="formError.state"
+                    />
                   </v-col>
                 </v-row>
               </v-card-text>
+
               <v-card-actions class="d-flex justify-space-between">
                 <v-btn color="secondary" @click="goBack" rounded>
                   <v-icon left>mdi-arrow-left</v-icon> Voltar
@@ -46,21 +58,29 @@ class LocationFormComponent extends Vue {
   private $router: any;
   public formError: any = {};
   public loading: boolean = false;
-  public location: { id: string, name: string } = { id: '', name: '' };
+
+  public location: { city: string; state: string } = {
+    city: '',
+    state: ''
+  };
 
   private addLocation() {
-    if (!this.location.name) {
-      this.formError.name = 'O nome da localização é obrigatório!';
-      return;
+    this.formError = {};
+
+    if (!this.location.city) {
+      this.formError.city = 'A cidade é obrigatória!';
     }
+    if (!this.location.state) {
+      this.formError.state = 'O estado é obrigatório!';
+    }
+
+    if (Object.keys(this.formError).length > 0) return;
 
     this.loading = true;
     locationService.create(this.location)
-      .then(() => {
-        this.goBack();
-      })
+      .then(() => this.goBack())
       .catch(() => {
-        this.formError.name = 'Erro ao adicionar a localização.';
+        alert('Erro ao adicionar a localização.');
       })
       .finally(() => {
         this.loading = false;

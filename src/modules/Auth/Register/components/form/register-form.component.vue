@@ -73,7 +73,7 @@
           </v-card-text>
           <v-card-actions class="d-flex justify-space-between">
             <v-btn color="secondary" @click="goBack" rounded>
-              <v-icon left>mdi-arrow-left</v-icon> Voltar
+              <v-icon @click="goBack" left>mdi-arrow-left</v-icon> Voltar
             </v-btn>
             <v-btn color="primary" :loading="loading" @click="submit" rounded>
               <v-icon left>mdi-account-plus</v-icon> Cadastrar
@@ -128,6 +128,10 @@ class RegisterFormComponent extends Vue {
 
   public closeSnackbar() {
     this.snackbarState = false;
+  }
+
+  private goBack() {
+    this.$router.go(-1);
   }
 
   private submit(): void {

@@ -22,13 +22,16 @@
                   <v-col cols="12">
                     <div class="text-subtitle-1">Localização</div>
                     <v-select 
-                      v-model="skatePark.location" 
+                      v-model="skatePark.location_id" 
                       label="Selecione a localização" 
                       outlined 
                       dense 
+                      item-title="label" 
+                      item-value="id"
                       :items="locations" 
-                      :error-messages="formError.location"
-                    ></v-select>
+                      :error-messages="formError.location_id"
+                    />
+                    {{ skatePark.location_id }}
                   </v-col>
                   <v-col cols="12">
                     <div class="text-subtitle-1">Descrição</div>
@@ -59,31 +62,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, toNative } from 'vue-facing-decorator';
+import { Component, Vue } from 'vue-facing-decorator';
 import skateParkService from '../../services/skate-park.service';
 import locationService from '../../services/location.service';
-import SkatePark from '../../entities/skate-park.entity';
 
 @Component
-class SkateParkFormComponent extends Vue {
+export default class SkateParkFormComponent extends Vue {
   private $router: any;
   public formError: any = {};
   public loading: boolean = false;
-  public skatePark: SkatePark = new SkatePark();
-  public locations: string[] = [];
+  public skatePark: any = {
+    name: '',
+    location_id: null,
+    description: ''
+  };
+  public locations: { id: number; label: string }[] = [];
 
   private addSkatePark() {
     this.formError = {};
     if (!this.skatePark.name) this.formError.name = 'O nome da pista é obrigatório!';
-    if (!this.skatePark.location) this.formError.location = 'Selecione uma localização!';
+    if (!this.skatePark.location_id) this.formError.location_id = 'Selecione uma localização!';
     if (!this.skatePark.description) this.formError.description = 'A descrição é obrigatória!';
     if (Object.keys(this.formError).length > 0) return;
 
     this.loading = true;
+
     skateParkService.create(this.skatePark)
-      .then(() => {
-        this.$router.push({ name: 'skate-park-list' });
-      })
+      .then(() => this.$router.push({ name: 'admin-form' }))
       .catch(() => {
         this.formError.name = 'Erro ao adicionar a pista de skate.';
       })
@@ -99,15 +104,17 @@ class SkateParkFormComponent extends Vue {
   private created() {
     locationService.getAll()
       .then((response) => {
-        this.locations = response.map((location: any) => location.name);
+        this.locations = response.map((location: any) => ({
+          id: location.id,
+          label: `${location.city} - ${location.state}`
+        }));
       })
       .catch(() => {
-        this.formError.location = 'Erro ao carregar localizações.';
+        this.formError.location_id = 'Erro ao carregar localizações.';
       });
   }
 }
 
-export default toNative(SkateParkFormComponent);
 </script>
 
 <style scoped>

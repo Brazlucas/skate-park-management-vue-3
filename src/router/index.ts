@@ -44,6 +44,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../modules/Rental/components/form/rental-form.component.vue'),
   },
   {
+    path: '/rented/:id',
+    name: 'rented-form',
+    meta: { requiresAuth: true },
+    component: () => import('../modules/Rental/components/form/rented-form.component.vue'),
+  },
+  {
     path: '/skate-parks',
     name: 'skate-park-list',
     meta: { requiresAuth: true },

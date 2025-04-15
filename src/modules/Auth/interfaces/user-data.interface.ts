@@ -4,6 +4,7 @@ export interface IUserData {
   password_confirmation: string;
   created_at: string;
   name: string;
+  id: number;
   token: string;
   is_admin: boolean;
   address: string;

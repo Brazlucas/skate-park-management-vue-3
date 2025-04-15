@@ -6,7 +6,7 @@
           <v-card-title class="title text-h4 font-weight-bold">
             Pistas de Skate <v-icon color="light-blue lighten-2">mdi-skateboard</v-icon>
           </v-card-title>
-          <!-- Verifica se existe skatePark e renderiza o conteúdo -->
+
           <template v-if="skateParks.length > 0">
             <v-row>
               <v-col v-for="skatePark in skateParks" :key="skatePark.id" cols="12" md="6">
@@ -16,17 +16,20 @@
                   <v-card-subtitle class="skate-location">📍 {{ skatePark.location }}</v-card-subtitle>
                   <v-card-text class="skate-description">{{ skatePark.description }}</v-card-text>
                   <v-card-actions>
-                    <!-- Condicional de Exibição de Botões -->
-                    <router-link v-if="!user.isAdmin" :to="`/rent/${skatePark.id}`" class="reserve-link">
-                      <v-btn class="reserve-btn">Reservar</v-btn>
+
+                    <router-link :to="`/rent/${skatePark.id}`" class="reserve-link">
+                      <v-btn class="reserve-btn" v-if="!skatePark.rented">Reservar</v-btn>
                     </router-link>
-                    <v-btn v-if="user.isAdmin" color="white" class="delete-btn" @click="deleteSkatePark(skatePark.id)">Excluir Pista</v-btn>
+
+                    <router-link :to="`/rented/${skatePark.rentals.map((r) => r.id)}`" class="reserve-link">
+                      <v-btn class="reserved-btn" v-if="skatePark.rented">Ver aluguel</v-btn>
+                    </router-link>
                   </v-card-actions>
                 </v-card>
               </v-col>
             </v-row>
           </template>
-          <!-- Caso não haja skateparks cadastradas -->
+
           <template v-else>
             <v-row no-gutters>
               <v-col cols="12" class="d-flex justify-center mt-15">
@@ -97,12 +100,10 @@ export default toNative(SkateParkListComponent);
 }
 
 .skate-card {
-  background: rgba(28, 28, 28, 0.8); /* Fundo semitransparente */
   padding: 24px;
   border-radius: 12px;
   width: 100%;
   max-width: 1000px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
 }
 
 .title {
@@ -143,6 +144,15 @@ export default toNative(SkateParkListComponent);
 
 .reserve-btn {
   background: #03dac6;
+  color: #000;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.reserved-btn {
+  background: #ffb74d;
   color: #000;
   font-weight: bold;
   padding: 10px 20px;
