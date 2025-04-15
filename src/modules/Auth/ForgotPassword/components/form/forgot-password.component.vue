@@ -1,12 +1,6 @@
 <template>
   <v-form ref="form" class="forgot-pass-form">
     <div class="forgot-pass-form__background">
-      <snackbar-component
-        :value="responseMessage"
-        :snackbar="snackbarState"
-        @close-snackbar="closeSnackbar"
-        :type="responseType"
-      />
       <v-img
         class="mx-auto my-6"
         max-width="228"
@@ -61,7 +55,7 @@
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
-import snackbarComponent from '@/components/snackbar.component.vue';
+import snackbarComponent from '@/components/global-snackbar.component.vue';
 import User from '../../../entities/user.entity';
 
 @Component({
@@ -76,12 +70,6 @@ class ForgotPasswordFormComponent extends Vue {
 
   private $router: any;
 
-  public snackbarState: boolean = false;
-
-  public responseMessage: any = {};
-
-  private responseType: string = '';
-
   private passwordVisible: boolean = false;
 
   private passwordConfirmationVisible: boolean = false;
@@ -89,18 +77,6 @@ class ForgotPasswordFormComponent extends Vue {
   private loadingValue: boolean = false;
 
   private errors: {} = {};
-
-  public openSnackbar() {
-    this.snackbarState = true;
-
-    setTimeout(() => {
-      this.snackbarState = false;
-    }, 2000);
-  }
-
-  public closeSnackbar() {
-    this.snackbarState = false;
-  }
 }
 export default toNative(ForgotPasswordFormComponent);
 </script>

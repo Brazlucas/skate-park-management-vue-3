@@ -65,18 +65,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, toNative } from 'vue-facing-decorator';
+import { Component, Vue } from 'vue-facing-decorator';
+import { mapActions } from 'vuex';
 import { useRoute } from 'vue-router';
 import rentalService from '@/modules/Rental/services/rental.service';
 import skateParkService from '@/modules/SkatePark/services/skate-park.service';
 import SkatePark from '@/modules/SkatePark/entities/skate-park.entity';
 import { formatDate, formatTime} from '@/utils/date';
 
-@Component
-class RentedFormComponent extends Vue {
+@Component({
+  methods: {
+    ...mapActions(['setIsLoading']),
+  },
+})
+export default class RentedFormComponent extends Vue {
   private rental: any = {};
+
   private skatePark: SkatePark = new SkatePark();
+
   private $router: any;
+
+  public setIsLoading!: Function;
 
   public get formattedDate(): string {
     if (!this.rental.start_time) return '';
@@ -104,15 +113,17 @@ class RentedFormComponent extends Vue {
 
     try {
       await rentalService.delete(this.rental.id);
-      alert('Aluguel cancelado com sucesso!');
       this.$router.push('/alugueis');
+      this.$snackbar('Aluguel cancelado com sucesso', 'success');
     } catch (e) {
-      console.error('Erro ao cancelar aluguel:', e);
+      this.$snackbar('Erro ao cancelar o aluguel', 'error');
       alert('Erro ao cancelar. Tente novamente.');
     }
   }
 
   private async created() {
+    this.setIsLoading(true);
+
     const route = useRoute();
     const id = route.params.id;
 
@@ -123,11 +134,12 @@ class RentedFormComponent extends Vue {
       const skateParkData = await skateParkService.getById(rentalData.skate_park_id);
       this.skatePark = new SkatePark(skateParkData);
     } catch (err) {
-      console.error('Erro ao carregar detalhes do aluguel:', err);
+      this.$snackbar('Erro ao carregar os dados do aluguel', 'error');
+    } finally {
+      this.setIsLoading(false);
     }
   }
 }
-export default toNative(RentedFormComponent);
 </script>
 
 

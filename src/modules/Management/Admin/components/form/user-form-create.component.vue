@@ -96,7 +96,7 @@
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
-import snackbarComponent from '@/components/snackbar.component.vue';
+import snackbarComponent from '@/components/global-snackbar.component.vue';
 import registerService from '@/modules/Auth/Register/services/register.service';
 import User from '@/modules/Auth/entities/user.entity';
 

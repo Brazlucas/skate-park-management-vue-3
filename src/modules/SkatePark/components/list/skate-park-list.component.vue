@@ -47,11 +47,16 @@
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
+import { mapActions } from 'vuex';
 import skateParkService from '@/modules/SkatePark/services/skate-park.service';
 import User from '@/modules/Auth/entities/user.entity';
 import SkatePark from '../../entities/skate-park.entity';
 
-@Component
+@Component({
+  methods: {
+    ...mapActions(['setIsLoading']),
+  },
+})
 class SkateParkListComponent extends Vue {
   private skateParks: SkatePark[] = [];
 
@@ -59,16 +64,21 @@ class SkateParkListComponent extends Vue {
 
   private listView: boolean = false;
 
+  public setIsLoading!: Function;
+
   private changeListView() {
     this.listView = !this.listView;
   }
 
   private getAllSkateParks() {
+    this.setIsLoading(true);
+
     skateParkService.getAll()
       .then((response: any[]) => {
         this.skateParks = response.map(item => new SkatePark(item));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => this.setIsLoading(false));
   }
 
   private deleteSkatePark(id: number) {

@@ -10,6 +10,7 @@
             <loader-component />
             <header-component v-show="isAuthenticated" />
             <router-view />
+            <global-snackbar />
           </v-container>
         </v-main>
       </div>
@@ -23,12 +24,14 @@ import { mapGetters } from 'vuex';
 import headerComponent from './components/header.component.vue';
 import navComponent from './components/nav.component.vue';
 import loaderComponent from './components/loader.component.vue';
+import GlobalSnackbar from './components/global-snackbar.component.vue';
 
 @Options({
   components: {
     headerComponent,
     navComponent,
     loaderComponent,
+    GlobalSnackbar,
   },
   computed: {
     ...mapGetters(['isAuthenticated'])

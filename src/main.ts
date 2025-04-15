@@ -7,6 +7,7 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import './assets/style/global/index.sass';
 import 'vuetify/styles'
+import SnackbarPlugin from './plugins/snackbar.plugin';
 
 import App from './App.vue';
 
@@ -26,5 +27,6 @@ const app = createApp(App)
 app.use(router);
 app.use(vuetify);
 app.use(store);
+app.use(SnackbarPlugin);
 
 app.mount('#app');

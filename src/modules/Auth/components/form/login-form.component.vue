@@ -74,7 +74,7 @@
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import { mapActions } from 'vuex';
-import snackbarComponent from '@/components/snackbar.component.vue';
+import snackbarComponent from '@/components/global-snackbar.component.vue';
 import User from '../../entities/user.entity';
 import authService from '../../services/auth.service';
 import RenderApp from '@/services/base/render.service';
@@ -116,10 +116,12 @@ class LoginFormComponent extends Vue {
         setTimeout(() => {
           this.$router.push({ name: 'home' });
         }, 1000);
+        this.$snackbar('Login realizado com sucesso!', 'success');
       })
       .catch((error: any) => {
         console.log(error);
         this.setIsLoading(false);
+        this.$snackbar('Erro ao realizar login!', 'error');
       })
       .finally(() => {
         this.loading = false;
