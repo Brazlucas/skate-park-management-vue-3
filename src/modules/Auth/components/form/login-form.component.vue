@@ -67,6 +67,7 @@
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
 import { mapActions } from 'vuex';
+import { useUserContext } from '@/plugins/user.context';
 import snackbarComponent from '@/components/global-snackbar.component.vue';
 import User from '../../entities/user.entity';
 import authService from '../../services/auth.service';
@@ -80,36 +81,52 @@ import RenderApp from '@/services/base/render.service';
     ...mapActions([
       'setToken',
       'setIsAuthenticated',
-      'setUser',
+      // 'setUser',
       'setIsLoading'
     ]),
   }
 })
 class LoginFormComponent extends Vue {
   private $router: any;
+
   private user: User = new User();
+
   private passwordVisible: boolean = false;
+
   private loading: boolean = false;
 
   public setIsAuthenticated!: Function;
+  
   public setIsLoading!: Function;
-  public setToken!: Function;
-  public setUser!: Function;
 
-  private submit(): void {
+  public setToken!: Function;
+
+  // public setUser!: Function;
+
+  public setUser = useUserContext().setUser;
+  
+  public $store: any;
+
+  public submit(): void {
     this.loading = true;
     this.setIsLoading(true);
+
+    //     RenderApp.getRequireInfo();
+    //     this.setUser();
+    //     setTimeout(() => {
+    //       this.$router.push({ name: 'home' });
+    //       this.$snackbar('Login realizado com sucesso!', 'success');
+    //     }, 1000);
 
     authService.login(this.user)
       .then((response: any) => {
         this.setToken(response.token);
         this.setIsAuthenticated(true);
-        RenderApp.getRequireInfo();
-        this.setUser();
-        setTimeout(() => {
+        RenderApp.getRequireInfo().then((userInfo) => {
+          this.setUser(userInfo);
           this.$router.push({ name: 'home' });
           this.$snackbar('Login realizado com sucesso!', 'success');
-        }, 1000);
+        });
       })
       .catch((error: any) => {
         this.setIsLoading(false);

@@ -9,7 +9,8 @@ export default class RenderApp {
     if (token) {
       const data = await authService.getAuthUserInfo();
       const userInfo = new User(data.user);
-      store.dispatch('setUser', userInfo);
+      return userInfo;
+      // store.dispatch('setUser', userInfo);
     }
   }
 }

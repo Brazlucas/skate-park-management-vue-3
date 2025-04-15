@@ -1,3 +1,3 @@
 export default {
-  user: localStorage.getItem('user-info'),
+  user: JSON.parse(localStorage.getItem('user-info') || 'null'),
 };

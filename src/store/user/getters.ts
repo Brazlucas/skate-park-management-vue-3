@@ -1,3 +1,3 @@
 export default {
-  user: (store: any) => store.user || localStorage.getItem('user-info'),
+  user: (state: any) => state.user || JSON.parse(localStorage.getItem('user-info') || 'null'),
 };

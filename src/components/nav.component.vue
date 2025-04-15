@@ -40,26 +40,19 @@
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
-import User from '@/modules/Auth/entities/user.entity';
+// import User from '@/modules/Auth/entities/user.entity';
+import { useUserContext } from '@/plugins/user.context';
 
 @Component
 class NavComponent extends Vue {
-  private user: User = new User();
-
   private componentIsMounted: boolean = false;
-  
-  private get isAdmin() {
-    return !!this.user.isAdmin;
+
+  public get user() {
+    return useUserContext().user.value;
   }
 
-  private created() {
-    const userInfo = localStorage.getItem('user-info');
-
-    if (userInfo) {
-      const localStorageUser = JSON.parse(userInfo);
-
-      this.user = localStorageUser;
-    }
+  public get isAdmin() {
+    return !!this.user.isAdmin;
   }
 
   private mounted() {
