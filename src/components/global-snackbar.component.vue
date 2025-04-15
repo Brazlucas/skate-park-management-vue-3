@@ -6,10 +6,10 @@
     top
     right
   >
-    {{ message }}
-    <v-btn @click="visible = false">
-      <v-icon small>mdi-close</v-icon>
-    </v-btn>
+    <div class="d-flex justify-space-between">
+      <span>{{ message }}</span>
+      <v-icon small @click="visible = false">mdi-close</v-icon>
+    </div>
   </v-snackbar>
 </template>
 

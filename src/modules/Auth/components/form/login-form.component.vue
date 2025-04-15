@@ -1,11 +1,4 @@
 <template>
-  <!-- <snackbar-component
-    :value="responseMessage"
-    :snackbar="snackbarState"
-    :type="responseType"
-    @close-snackbar="closeSnackbar"
-  /> -->
-
   <v-container fluid>
     <v-row justify="center" class="login-form__background">
       <v-col cols="12" md="8" lg="4">
@@ -115,13 +108,12 @@ class LoginFormComponent extends Vue {
         this.setUser();
         setTimeout(() => {
           this.$router.push({ name: 'home' });
+          this.$snackbar('Login realizado com sucesso!', 'success');
         }, 1000);
-        this.$snackbar('Login realizado com sucesso!', 'success');
       })
       .catch((error: any) => {
-        console.log(error);
         this.setIsLoading(false);
-        this.$snackbar('Erro ao realizar login!', 'error');
+        this.$snackbar('Erro ao realizar login!', error);
       })
       .finally(() => {
         this.loading = false;
