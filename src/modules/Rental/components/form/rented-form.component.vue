@@ -49,10 +49,24 @@
                 />
               </v-col>
             </v-row>
+            <v-row>
+              <v-col>
+                <v-alert
+                  type="info"
+                  color="green"
+                  class="mt-3"
+                  icon="mdi-calendar-check"
+                >
+                  <div>
+                    Valor do Aluguel: R$ {{ rental.rent_value }}
+                  </div>
+                </v-alert>
+              </v-col>
+            </v-row>
           </v-card-text>
           <v-card-actions class="d-flex justify-space-between">
             <v-btn color="error" @click="cancelRental" rounded>
-              <v-icon left>mdi-cancel</v-icon> Cancelar Aluguel
+              <v-icon left class="mr-1">mdi-cancel</v-icon> Cancelar Aluguel
             </v-btn>
             <v-btn color="primary" @click="goBack" rounded>
               <v-icon left>mdi-arrow-left</v-icon> Voltar

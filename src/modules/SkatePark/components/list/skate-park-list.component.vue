@@ -11,18 +11,18 @@
             <v-row>
               <v-col v-for="skatePark in skateParks" :key="skatePark.id" cols="12" md="6">
                 <v-card class="skate-card-item">
-                  <v-img :src="skatePark.image || 'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/primary/h3kyw7djb4sky6dpn7ui'" height="200px" />
+                  <v-img :src="skatePark.image || 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'" height="200px" />
                   <v-card-title class="skate-title">{{ skatePark.name }}</v-card-title>
                   <v-card-subtitle class="skate-location">📍 {{ skatePark.location }}</v-card-subtitle>
                   <v-card-text class="skate-description">{{ skatePark.description }}</v-card-text>
                   <v-card-actions>
 
                     <router-link :to="`/rent/${skatePark.id}`" class="reserve-link">
-                      <v-btn class="reserve-btn" v-if="!skatePark.rented">Reservar</v-btn>
+                      <v-btn class="reserve-btn" rounded v-if="!skatePark.rented">Reservar</v-btn>
                     </router-link>
 
                     <router-link :to="`/rented/${skatePark.rentals.map((r) => r.id)}`" class="reserve-link">
-                      <v-btn class="reserved-btn" v-if="skatePark.rented">Ver aluguel</v-btn>
+                      <v-btn class="reserved-btn" rounded v-if="skatePark.rented">Ver aluguel</v-btn>
                     </router-link>
                   </v-card-actions>
                 </v-card>
@@ -154,19 +154,17 @@ export default toNative(SkateParkListComponent);
 
 .reserve-btn {
   background: #03dac6;
-  color: #000;
+  color: #fff;
   font-weight: bold;
   padding: 10px 20px;
-  border-radius: 8px;
   transition: 0.3s;
 }
 
 .reserved-btn {
   background: #ffb74d;
-  color: #000;
+  color: #fff;
   font-weight: bold;
   padding: 10px 20px;
-  border-radius: 8px;
   transition: 0.3s;
 }
 

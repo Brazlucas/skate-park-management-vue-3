@@ -16,6 +16,8 @@ export default class SkatePark {
   public rentals: any[];
 
   public rented: boolean;
+
+  public image: string;
   
   constructor(skate_park: ISkateParkData = {
     id: '',
@@ -25,7 +27,8 @@ export default class SkatePark {
     createdAt: new Date(),
     updatedAt: new Date(),
     rented: false,
-    rentals: []
+    rentals: [],
+    image: '',
   }) {
     this.id = skate_park.id;
     this.name = skate_park.name;
@@ -35,5 +38,6 @@ export default class SkatePark {
     this.location = skate_park.location;
     this.rented = skate_park.rented;
     this.rentals = skate_park.rentals;
+    this.image = skate_park.image;
   }
 }

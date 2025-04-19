@@ -7,6 +7,16 @@
             Alugar Pista: "{{ skatePark.name }}"
           </v-card-title>
           <v-divider></v-divider>
+
+          <v-col cols="12">
+            <v-img
+              :src="skatePark.image"
+              max-height="500"
+              max-width="100%"
+              class="my-2"
+              cover
+            ></v-img>
+          </v-col>
           <v-card-text>
             <v-form ref="rentalForm">
               <v-row>
@@ -64,17 +74,41 @@
                   />
                 </v-col>
 
-                <v-select
-                  v-model="rental.duration"
-                  :items="availableDurations"
-                  item-title="text"
-                  item-value="value"
-                  label="Duração"
-                  outlined
-                  dense
-                  prepend-icon="mdi-timer-outline"
-                  :disabled="!rental.startHour"
-                />
+                <v-col cols="12">
+                  <v-select
+                    v-model="rental.duration"
+                    :items="availableDurations"
+                    item-title="text"
+                    item-value="value"
+                    label="Duração"
+                    outlined
+                    dense
+                    prepend-inner-icon="mdi-timer-outline"
+                    :disabled="!rental.startHour"
+                  />
+                </v-col>
+
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-alert
+                    v-if="rental.startHour && rental.duration"
+                    type="info"
+                    color="green"
+                    class="mt-3"
+                    icon="mdi-calendar-check"
+                  >
+                    <div>
+                      Valor do Aluguel: R$ {{
+                        rental.duration === 'day'
+                          ? '500,00'
+                          : rental.duration === '1h'
+                          ? '100,00'
+                          : '200,00'
+                      }}
+                    </div>
+                  </v-alert>
+                </v-col>
               </v-row>
             </v-form>
           </v-card-text>
@@ -182,12 +216,16 @@ class RentalFormComponent extends Vue {
 
     let end = formatDateTimeLocal(year, month + 1, day, endHour);
 
+    const hours = duration === 'day' ? 10 : parseInt(duration.replace('h', ''));
+    const rentValue = hours >= 10 ? 500 : hours * 100;
+
     const payload = {
       skate_park_id: Number(this.skatePark.id),
       renter_name: this.user.name,
       renter_id: this.user.id,
       start_time: start,
       end_time: end,
+      rent_value: rentValue,
     };
 
     this.loading = true;
@@ -195,7 +233,6 @@ class RentalFormComponent extends Vue {
       const service = rentalService.create(payload);
       await service;
 
-      console.log(service);
       this.$router.push({
         name: 'rented',
         // params: {

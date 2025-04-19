@@ -19,6 +19,28 @@
                       :error-messages="formError.name"
                     ></v-text-field>
                   </v-col>
+
+                  <v-col cols="12">
+                    <div class="text-subtitle-1">Imagem</div>
+                    <v-text-field 
+                      v-model="skatePark.image" 
+                      label="URL da imagem" 
+                      outlined 
+                      dense 
+                      :error-messages="formError.image"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" v-if="previewImage">
+                    <v-img
+                      :src="previewImage"
+                      max-height="500"
+                      max-width="100%"
+                      class="my-2"
+                      cover
+                    ></v-img>
+                  </v-col>
+
                   <v-col cols="12">
                     <div class="text-subtitle-1">Localização</div>
                     <v-select 
@@ -31,8 +53,8 @@
                       :items="locations" 
                       :error-messages="formError.location_id"
                     />
-                    {{ skatePark.location_id }}
                   </v-col>
+
                   <v-col cols="12">
                     <div class="text-subtitle-1">Descrição</div>
                     <v-textarea 
@@ -45,6 +67,7 @@
                   </v-col>
                 </v-row>
               </v-card-text>
+
               <v-card-actions class="d-flex justify-space-between">
                 <v-btn color="secondary" @click="goBack" rounded>
                   <v-icon left>mdi-arrow-left</v-icon> Voltar
@@ -62,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-facing-decorator';
+import { Component, Vue, Watch } from 'vue-facing-decorator';
 import skateParkService from '../../services/skate-park.service';
 import locationService from '../../services/location.service';
 
@@ -71,18 +94,33 @@ export default class SkateParkFormComponent extends Vue {
   private $router: any;
   public formError: any = {};
   public loading: boolean = false;
+
+  public previewImage: string | null = null;
+
   public skatePark: any = {
     name: '',
     location_id: null,
-    description: ''
+    description: '',
+    image: '',
   };
+
   public locations: { id: number; label: string }[] = [];
+
+  @Watch('skatePark.image')
+  onImageUrlChanged(newVal: string) {
+    this.previewImage = this.isValidImageUrl(newVal) ? newVal : null;
+  }
+
+  private isValidImageUrl(url: string): boolean {
+    return url.match(/\.(jpeg|jpg|gif|png|webp)$/i) !== null;
+  }
 
   private addSkatePark() {
     this.formError = {};
     if (!this.skatePark.name) this.formError.name = 'O nome da pista é obrigatório!';
     if (!this.skatePark.location_id) this.formError.location_id = 'Selecione uma localização!';
     if (!this.skatePark.description) this.formError.description = 'A descrição é obrigatória!';
+    if (!this.skatePark.image) this.formError.image = 'A imagem é obrigatória!';
     if (Object.keys(this.formError).length > 0) return;
 
     this.loading = true;
@@ -114,7 +152,6 @@ export default class SkateParkFormComponent extends Vue {
       });
   }
 }
-
 </script>
 
 <style scoped>

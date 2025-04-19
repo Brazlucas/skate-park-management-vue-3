@@ -16,3 +16,15 @@ export function formatDateTimeLocal(year: number, month: number, day: number, ho
     { zone: 'America/Sao_Paulo' }
   ).toISO();
 }
+
+export function formatRentalDateTimeStart(start: string): string {
+  const startDate = DateTime.fromSQL(start).setLocale('pt-BR');
+
+  return `Pista reservada para o dia ${startDate.toFormat('dd/LL/yyyy')} às ${startDate.toFormat('HH:mm')}.`;
+}
+
+export function formatRentalDateTimeEnd(end: string): string {
+  const endDate = DateTime.fromSQL(end).setLocale('pt-BR');
+  return `\nAluguel válido até ${endDate.toFormat('dd/LL/yyyy')} às ${endDate.toFormat('HH:mm')}.`;
+}
+

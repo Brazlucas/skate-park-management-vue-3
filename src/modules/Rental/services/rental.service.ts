@@ -36,6 +36,12 @@ class RentalService {
       })
       .then(({ data }: AxiosResponse) => data);
   }
+
+  public async getRentalsByUser() {
+    return http
+      .get(`/rentals/user`)
+      .then(({ data }: AxiosResponse) => data);
+  }
 }
 
 export default new RentalService();

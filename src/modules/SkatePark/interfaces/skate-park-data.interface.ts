@@ -6,6 +6,7 @@ export interface ISkateParkData {
   description: string;
   createdAt: Date;
   updatedAt: Date;
+  image: string;
   location: { city: string; state: string; id: string };
   rented: boolean;
   rentals: Rental[];

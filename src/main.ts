@@ -8,6 +8,7 @@ import * as directives from 'vuetify/directives';
 import './assets/style/global/index.sass';
 import 'vuetify/styles'
 import SnackbarPlugin from './plugins/snackbar.plugin';
+import { loadUserContextFromLocalStorage } from './plugins/user.context';
 
 import App from './App.vue';
 
@@ -23,6 +24,8 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App)
+
+loadUserContextFromLocalStorage();
 
 app.use(router);
 app.use(vuetify);

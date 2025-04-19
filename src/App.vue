@@ -25,7 +25,6 @@ import headerComponent from './components/header.component.vue';
 import navComponent from './components/nav.component.vue';
 import loaderComponent from './components/loader.component.vue';
 import GlobalSnackbar from './components/global-snackbar.component.vue';
-import { provideUserContext } from './plugins/user.context';
 
 @Options({
   components: {
@@ -40,10 +39,6 @@ import { provideUserContext } from './plugins/user.context';
 })
 export default class App extends Vue {
   private isAuthenticated!: Function;
-
-  public beforeCreate() {
-    provideUserContext();
-  }
 }
 </script>
 
