@@ -1,12 +1,13 @@
 <template>
   <v-app-bar :elevation="2" v-if="componentIsMounted" class="header">
-    <!-- <template v-slot:prepend>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    </template> -->
+    <v-app-bar-nav-icon
+      v-if="!isDesktop"
+      @click="$emit('toggle-menu')"
+    ></v-app-bar-nav-icon>
 
     <v-app-bar-title>
       <router-link to="/home">
-        <v-img src="https://i.postimg.cc/YqssJ92z/logo-compactada.png" width="150" height="200"></v-img>
+        <v-img src="https://i.postimg.cc/YqssJ92z/logo-compactada.png" width="150" height="200" />
       </router-link>
     </v-app-bar-title>
 
@@ -14,7 +15,7 @@
       <h3>Bem-vindo(a) novamente! <i><span class="user-name">{{ user.name }}</span></i></h3>
     </v-app-bar-subtitle>
 
-    <v-btn @click="logout">
+    <v-btn @click="logout" v-if="isDesktop" class="ml-auto" text>
       <v-icon large>mdi-exit-to-app</v-icon>
       <span class="ml-1">Sair</span>
     </v-btn>
@@ -23,14 +24,18 @@
 
 <script lang="ts">
 import { Component, Vue, toNative } from 'vue-facing-decorator';
+import { useDisplay } from 'vuetify';
 import User from '@/modules/Auth/entities/user.entity';
 import authService from '@/modules/Auth/services/auth.service';
 
 @Component
 class HeaderComponent extends Vue {
   private user: User = new User();
-
   private componentIsMounted: boolean = false;
+
+  public get isDesktop(): boolean {
+    return useDisplay().mdAndUp.value;
+  }
 
   private logout() {
     authService.logout();
@@ -40,9 +45,7 @@ class HeaderComponent extends Vue {
     const userInfo = localStorage.getItem('user-info');
 
     if (userInfo) {
-      const localStorageUser = JSON.parse(userInfo);
-
-      this.user = localStorageUser;
+      this.user = JSON.parse(userInfo);
     }
   }
 
@@ -55,9 +58,10 @@ export default toNative(HeaderComponent);
 
 <style lang="sass" scoped>
 .header {
-  padding: 15px;
- }
+  padding: 15px
+}
+
 .user-name {
-   color: salmon;
- }
+  color: salmon
+}
 </style>
