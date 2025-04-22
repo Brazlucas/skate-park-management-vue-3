@@ -53,11 +53,11 @@
               <v-icon left>mdi-login</v-icon> Entrar
             </v-btn>
           </v-card-actions>
-          <v-card-text class="text-center">
+          <!-- <v-card-text class="text-center">
             <a class="text-red text-decoration-none" href="/register" rel="noopener noreferrer">
               Cadastre-se agora <v-icon icon="mdi-chevron-right"></v-icon>
             </a>
-          </v-card-text>
+          </v-card-text> -->
         </v-card>
       </v-col>
     </v-row>

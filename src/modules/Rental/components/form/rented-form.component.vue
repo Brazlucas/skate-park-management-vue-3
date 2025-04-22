@@ -127,11 +127,12 @@ export default class RentedFormComponent extends Vue {
 
     try {
       await rentalService.delete(this.rental.id);
-      this.$router.push('/alugueis');
       this.$snackbar('Aluguel cancelado com sucesso', 'success');
+      setTimeout(() => {
+        this.$router.push({ name: 'user-form' });
+      }, 1000);
     } catch (e) {
       this.$snackbar('Erro ao cancelar o aluguel', 'error');
-      alert('Erro ao cancelar. Tente novamente.');
     }
   }
 

@@ -230,16 +230,18 @@ class RentalFormComponent extends Vue {
 
     this.loading = true;
     try {
-      const service = rentalService.create(payload);
-      await service;
-
-      this.$router.push({
-        name: 'rented',
-        // params: {
-        //   id: service.rental.id,
-        // },
-      });
+      const service = await rentalService.create(payload);
+      
       this.$snackbar('Aluguel realizado com sucesso!', 'success');
+
+      setTimeout(() => {
+        this.$router.push({
+          name: 'rented-form',
+          params: {
+            id: service.id.toString(),
+          },
+        });
+      }, 1000);
     } catch (e) {
       this.$snackbar(e as string, 'error');
     } finally {
