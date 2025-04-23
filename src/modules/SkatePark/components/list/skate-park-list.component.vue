@@ -103,6 +103,10 @@ export default toNative(SkateParkListComponent);
 </script>
 
 <style scoped>
+.skate-park-list {
+  background-image: url('https://i.ytimg.com/vi/Flii4YJEjCc/maxresdefault.jpg');
+}
+
 .skate-park-container {
   justify-content: center;
   align-items: center;

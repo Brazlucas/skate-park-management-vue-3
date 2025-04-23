@@ -8,7 +8,7 @@
         <v-list-item
           class="icon"
           :append-icon="isAdmin ? 'mdi-shield-crown' : ''"
-          prepend-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5FAPT67VhJt6hITfDXhnUp2cv5CDwsuyQvT7__kkOGErX88qJ"
+          prepend-avatar="https://cdn.shopify.com/s/files/1/1566/2889/files/Tony-Hawk-8.jpg?v=1625823277"
           :subtitle="user.email"
           :title="user.name"
         ></v-list-item>

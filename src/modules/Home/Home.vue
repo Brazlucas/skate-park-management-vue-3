@@ -15,6 +15,7 @@
               </v-card-subtitle>
             </v-col>
           </v-row>
+
           <v-row class="my-4">
             <v-col cols="12" md="6">
               <v-hover v-slot="{ hover }">
@@ -28,6 +29,7 @@
                 </v-card>
               </v-hover>
             </v-col>
+
             <v-col cols="12" md="6" class="text-center">
               <v-hover v-slot="{ hover }">
                 <v-card class="info-card pa-4" :elevation="hover ? 12 : 4">
@@ -41,6 +43,7 @@
               </v-hover>
             </v-col>
           </v-row>
+
           <v-row class="overview-section my-6" v-if="user.isAdmin">
             <v-col cols="12" md="4">
               <v-slide-y-transition>
@@ -50,7 +53,7 @@
                 </v-card>
               </v-slide-y-transition>
             </v-col>
-        
+
             <v-col cols="12" md="4">
               <v-slide-y-transition>
                 <v-card class="overview-card pa-4">
@@ -59,7 +62,7 @@
                 </v-card>
               </v-slide-y-transition>
             </v-col>
-        
+
             <v-col cols="12" md="4">
               <v-slide-y-transition>
                 <v-card class="overview-card pa-4">
@@ -69,9 +72,16 @@
               </v-slide-y-transition>
             </v-col>
           </v-row>
+
           <v-row justify="center">
-            <v-col cols="12" md="10">
-              <v-img height="500" contain :src="skateImage"></v-img>
+            <v-col cols="12" md="10" class="skater-container">
+              <v-img
+                :src="skateImage"
+                class="skater-image"
+                height="200"
+                width="auto"
+                contain
+              />
             </v-col>
           </v-row>
         </v-card>
@@ -94,6 +104,7 @@ class Home extends Vue {
   private user: User = new User();
   private localDateNow: Date = new Date();
   public setIsLoading!: Function;
+
   private skateImage: string = 'https://matheusmuriel.github.io/FilosofoChorao/assets/choris.png';
 
   private get timeNow() {
@@ -120,11 +131,14 @@ class Home extends Vue {
 export default toNative(Home);
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
 .home-container {
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .global {
@@ -146,5 +160,43 @@ export default toNative(Home);
 
 .overview-card:hover {
   transform: translateY(-5px);
+}
+
+.skater-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.skater-image {
+  position: absolute;
+  bottom: 0;
+  height: 200px;
+  width: auto;
+  animation: skateLoop 10s ease-in-out infinite;
+}
+
+@keyframes skateLoop {
+  0% {
+    left: -200px;
+    transform: scaleX(1) translateY(0);
+  }
+  25% {
+    transform: scaleX(1) translateY(-30px); /* pulo */
+  }
+  50% {
+    left: 100%;
+    transform: scaleX(1) translateY(0);
+  }
+  50.01% {
+    transform: scaleX(-1) translateY(0);
+  }
+  75% {
+    transform: scaleX(-1) translateY(-30px); /* pulo na volta */
+  }
+  100% {
+    left: -200px;
+    transform: scaleX(-1) translateY(0);
+  }
 }
 </style>
