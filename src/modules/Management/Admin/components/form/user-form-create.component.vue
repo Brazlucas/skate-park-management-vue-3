@@ -1,131 +1,123 @@
 <template>
-  <v-app>
-    <v-main>
-      <v-container fluid>
-        <v-row justify="center">
-          <v-col cols="12" md="12">
-            <v-card>
-              <v-card-title class="headline">Adicionar Usuário</v-card-title>
-              <v-divider></v-divider>
-              <v-card-text>
-                <v-form ref="form" v-model="valid" lazy-validation>
-                  <v-row>
-                    <v-col cols="6">
-                      <div class="text-subtitle-1">Nome do Usuário</div>
-                      <v-text-field
-                        v-model="user.name"
-                        label="Nome"
-                        outlined
-                        dense
-                        :rules="[rules.required]"
-                        :error-messages="formError.name"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <div class="text-subtitle-1">E-mail</div>
-                      <v-text-field
-                        v-model="user.email"
-                        label="E-mail"
-                        outlined
-                        dense
-                        :rules="[rules.required, rules.email]"
-                        :error-messages="formError.email"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <div class="text-subtitle-1">Endereço</div>
-                      <v-text-field
-                        v-model="user.address"
-                        label="Endereço"
-                        outlined
-                        dense
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <div class="text-subtitle-1">Telefone</div>
-                      <v-text-field
-                        v-model="user.phone"
-                        label="Telefone"
-                        outlined
-                        dense
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <div class="text-subtitle-1">Senha</div>
-                      <v-text-field
-                        v-model="user.password"
-                        label="Senha"
-                        type="password"
-                        outlined
-                        dense
-                        :rules="[rules.required, rules.min]"
-                        :error-messages="formError.password"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="3">
-                      <div class="text-subtitle-1">Envio de notificações</div>
-                      <div class="d-flex">
-                        <v-switch class="mr-4" v-model="user.notifications.email" label="E-mail" color="primary"></v-switch>
-                        <v-switch v-model="user.notifications.sms" label="SMS" color="primary"></v-switch>
-                      </div>
-                    </v-col>
-                    <v-col cols="3">
-                      <div class="text-subtitle-1">Administrador</div>
-                      <div class="d-flex">
-                        <v-switch class="mr-4" v-model="user.isAdmin" :label="user.isAdmin ? 'Sim' : 'Não'" color="primary"></v-switch>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-form>
-              </v-card-text>
-              <v-card-actions class="d-flex justify-space-between">
-                <v-btn color="secondary" @click="goBack" rounded>
-                  <v-icon left>mdi-arrow-left</v-icon> Voltar
-                </v-btn>
-                <v-btn color="primary" :loading="loading" @click="createUser" rounded>
-                  <v-icon left>mdi-account-plus</v-icon> Adicionar Usuário
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <v-container fluid>
+    <v-row justify="center">
+      <v-col cols="12" md="12">
+        <v-card>
+          <v-card-title class="headline">Adicionar Usuário</v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-row>
+                <v-col cols="6">
+                  <div class="text-subtitle-1">Nome do Usuário</div>
+                  <v-text-field
+                    v-model="user.name"
+                    label="Nome"
+                    outlined
+                    dense
+                    :rules="[rules.required]"
+                    :error-messages="formError.name"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <div class="text-subtitle-1">E-mail</div>
+                  <v-text-field
+                    v-model="user.email"
+                    label="E-mail"
+                    outlined
+                    dense
+                    :rules="[rules.required, rules.email]"
+                    :error-messages="formError.email"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <div class="text-subtitle-1">Endereço</div>
+                  <v-text-field
+                    v-model="user.address"
+                    label="Endereço"
+                    outlined
+                    dense
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <div class="text-subtitle-1">Telefone</div>
+                  <v-text-field
+                    v-model="user.phone"
+                    label="Telefone"
+                    outlined
+                    dense
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <div class="text-subtitle-1">Senha</div>
+                  <v-text-field
+                    v-model="user.password"
+                    label="Senha"
+                    type="password"
+                    outlined
+                    dense
+                    :rules="[rules.required, rules.min]"
+                    :error-messages="formError.password"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3">
+                  <div class="text-subtitle-1">Envio de notificações</div>
+                  <div class="d-flex">
+                    <v-switch class="mr-4" v-model="user.notifications.email" label="E-mail" color="primary"></v-switch>
+                    <v-switch v-model="user.notifications.sms" label="SMS" color="primary"></v-switch>
+                  </div>
+                </v-col>
+                <v-col cols="3">
+                  <div class="text-subtitle-1">Administrador</div>
+                  <div class="d-flex">
+                    <v-switch class="mr-4" v-model="user.isAdmin" :label="user.isAdmin ? 'Sim' : 'Não'" color="primary"></v-switch>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-card-text>
+          <v-card-actions class="d-flex justify-space-between">
+            <v-btn color="secondary" @click="goBack" rounded>
+              <v-icon left>mdi-arrow-left</v-icon> Voltar
+            </v-btn>
+            <v-btn color="primary" :loading="loading" @click="createUser" rounded>
+              <v-icon left>mdi-account-plus</v-icon> Adicionar Usuário
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Vue, toNative } from 'vue-facing-decorator';
-import snackbarComponent from '@/components/global-snackbar.component.vue';
+import { Component, Vue } from 'vue-facing-decorator';
 import registerService from '@/modules/Auth/Register/services/register.service';
 import User from '@/modules/Auth/entities/user.entity';
 
-@Component({
-  components: { snackbarComponent },
-})
-class UserCreationFormComponent extends Vue {
+@Component
+export default class UserCreationFormComponent extends Vue {
   private $router: any;
+
   private user: User = new User();
+
   private roles = ['Administrador', 'Usuário Padrão', 'Gerente'];
+
   public snackbarState = false;
+
   public responseMessage = '';
+
   private responseType = '';
+
   private formError: any = {};
 
-  private openSnackbar() {
-    this.snackbarState = true;
-    setTimeout(() => (this.snackbarState = false), 3000);
-  }
+  public loading = false;
 
   private rules = {
     required: (value: string) => !!value || 'Campo obrigatório.',
     email: (value: string) => /.+@.+\..+/.test(value) || 'E-mail inválido.',
     min: (value: string) => (value && value.length >= 6) || 'A senha deve ter no mínimo 6 caracteres.',
   };
-
-  private closeSnackbar() {
-    this.snackbarState = false;
-  }
 
   private createUser() {
     this.formError = {};
@@ -136,17 +128,18 @@ class UserCreationFormComponent extends Vue {
 
     if (Object.keys(this.formError).length) return;
 
+    this.loading = true;
+
     registerService.internalRegistration(this.user)
       .then(() => {
-        this.responseMessage = 'Usuário criado com sucesso!';
-        this.responseType = 'success';
-        this.openSnackbar();
-        setTimeout(() => this.$router.push({ name: 'user-list' }), 1000);
+        this.$snackbar('Usuário criado com sucesso!', 'success');
+        setTimeout(() => this.$router.push({ name: 'admin-form' }), 1000);
       })
       .catch((err) => {
-        this.responseMessage = err?.response?.data?.message || 'Erro ao criar usuário.';
-        this.responseType = 'error';
-        this.openSnackbar();
+        this.$snackbar(err, 'error');
+      })
+      .finally(() => {
+        this.loading = false;
       });
   }
 
@@ -154,8 +147,6 @@ class UserCreationFormComponent extends Vue {
     this.$router.go(-1);
   }
 }
-
-export default toNative(UserCreationFormComponent);
 </script>
 
 <style lang="sass">

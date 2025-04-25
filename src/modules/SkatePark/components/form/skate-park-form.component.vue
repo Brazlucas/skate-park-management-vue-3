@@ -92,7 +92,9 @@ import locationService from '../../services/location.service';
 @Component
 export default class SkateParkFormComponent extends Vue {
   private $router: any;
+
   public formError: any = {};
+
   public loading: boolean = false;
 
   public previewImage: string | null = null;
@@ -126,9 +128,12 @@ export default class SkateParkFormComponent extends Vue {
     this.loading = true;
 
     skateParkService.create(this.skatePark)
-      .then(() => this.$router.push({ name: 'admin-form' }))
-      .catch(() => {
-        this.formError.name = 'Erro ao adicionar a pista de skate.';
+      .then(() => {
+        this.$snackbar('Pista de skate criada com sucesso!', 'success');
+        setTimeout(() => this.$router.push({ name: 'admin-form' }), 1000);
+      })
+      .catch((err) => {
+        this.$snackbar(err, 'error');
       })
       .finally(() => {
         this.loading = false;

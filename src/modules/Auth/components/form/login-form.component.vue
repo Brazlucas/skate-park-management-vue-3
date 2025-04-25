@@ -50,7 +50,8 @@
           </v-card-text>
           <v-card-actions class="d-flex justify-end">
             <v-btn color="primary" :loading="loading" @click="submit" rounded>
-              <v-icon left>mdi-login</v-icon> Entrar
+              Entrar
+              <v-icon class="ml-1" left>mdi-login</v-icon>
             </v-btn>
           </v-card-actions>
           <!-- <v-card-text class="text-center">

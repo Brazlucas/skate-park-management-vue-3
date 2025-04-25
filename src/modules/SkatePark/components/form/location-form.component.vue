@@ -56,7 +56,9 @@ import locationService from '../../services/location.service';
 @Component
 class LocationFormComponent extends Vue {
   private $router: any;
+  
   public formError: any = {};
+
   public loading: boolean = false;
 
   public location: { city: string; state: string } = {
@@ -77,18 +79,20 @@ class LocationFormComponent extends Vue {
     if (Object.keys(this.formError).length > 0) return;
 
     this.loading = true;
+
     locationService.create(this.location)
-      .then(() => this.goBack())
-      .catch(() => {
-        alert('Erro ao adicionar a localização.');
+      .then(() => {
+        this.$snackbar('Localização adicionada com sucesso!', 'success');
+        setTimeout(() => {
+          this.$router.push({ name: 'admin-form' })
+        }, 1500);
+      })
+      .catch((err) => {
+        this.$snackbar(err, 'error');
       })
       .finally(() => {
         this.loading = false;
       });
-  }
-
-  private goBack() {
-    this.$router.go(-1);
   }
 }
 

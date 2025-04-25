@@ -82,6 +82,10 @@ body, html {
   padding: 0;
   height: 100%;
   overflow: hidden;
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  letter-spacing: 0.5px;
 }
 
 html {
@@ -116,8 +120,17 @@ html {
 .app-content {
   flex-grow: 1;
   height: 100vh;
-  overflow-y: auto; /* Permite o scroll apenas no conteúdo */
+  overflow-y: auto;
   padding: 30px 0px;
   width: 100%;
+}
+
+.footer {
+  background-color: #F443;
+  z-index: 1 !important;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 10px 0;
+  justify-content: center;
 }
 </style>

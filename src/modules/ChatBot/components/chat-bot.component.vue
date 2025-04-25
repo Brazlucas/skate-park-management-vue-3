@@ -75,6 +75,7 @@ class ChatBotComponent extends Vue {
   private dotInterval: any = null;
 
   private suggestions: string[] = [
+    'De skate eu vim, de skate eu vou???',
     'Como alugar uma pista?',
     'Quais são os horários de funcionamento?',
     'Como cancelar o aluguel de uma pista?',

@@ -133,7 +133,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, toNative } from 'vue-facing-decorator';
+import { Component, Vue } from 'vue-facing-decorator';
 import { useRoute } from 'vue-router';
 import skateParkService from '@/modules/SkatePark/services/skate-park.service';
 import rentalService from '@/modules/Rental/services/rental.service';
@@ -142,8 +142,9 @@ import User from '@/modules/Auth/entities/user.entity';
 import { formatDate, formatDateTimeLocal } from '@/utils/date';
 
 @Component
-class RentalFormComponent extends Vue {
+export default class RentalFormComponent extends Vue {
   private skatePark: SkatePark = new SkatePark();
+  
   private user: User = new User();
 
   private rental = {
@@ -153,10 +154,13 @@ class RentalFormComponent extends Vue {
   };
 
   private datePicker = false;
+
   private formattedDate = '';
+
   private availableHours: string[] = [];
 
   public loading = false;
+
   private $router: any;
 
   private get availableDurations() {
@@ -284,7 +288,6 @@ class RentalFormComponent extends Vue {
     }
   }
 }
-export default toNative(RentalFormComponent);
 </script>
 
 <style scoped>
